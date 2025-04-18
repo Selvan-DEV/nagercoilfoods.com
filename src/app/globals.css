@@ -1,0 +1,104 @@
+@import "@fontsource/roboto/300.css";
+@import "@fontsource/roboto/400.css";
+@import "@fontsource/roboto/500.css";
+@import "@fontsource/roboto/700.css";
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --primary-color: #bf8c09;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  margin: 0;
+  overflow-x: hidden;
+  font-family: var(--font-outfit), sans-serif;
+  /* background: #f4f4f4; */
+}
+
+a {
+  text-decoration: underline !important;
+  color: var(--primary-color);
+}
+
+a:hover {
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+.rupee-card {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+}
+
+.no-results {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  row-gap: 0.5rem;
+}
+
+.payment-form__container {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #f8fafc;
+  margin-top: 16px;
+  width: 100%;
+}
+
+.payment-form h2 {
+  font-size: 18px;
+  margin-bottom: 16px;
+  color: #2d3748;
+}
+
+.payment-form__button {
+  background-color: #3182ce;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  margin-top: 20px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+}
+
+.payment-form__button:hover {
+  background-color: #2b6cb0;
+}
+
+.StripeElement {
+  background-color: #edf2f7;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e0;
+  margin-bottom: 20px;
+}
+
+.custom-image-upload-container {
+  min-width: 100% !important;
+  max-width: 100% !important;
+  border: dashed 2px #afb8c4 !important;
+  height: 70px !important;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

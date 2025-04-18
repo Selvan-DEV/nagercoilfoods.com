@@ -1,0 +1,17 @@
+{
+ "extends": [
+    "next",
+    "next/core-web-vitals"
+  ],
+  "parserOptions": {
+    "babelOptions": {
+      "presets": ["next/babel"]
+    },
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  }
+}
