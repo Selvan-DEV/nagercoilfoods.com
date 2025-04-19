@@ -5,7 +5,7 @@ import Slider from "react-slick";
 const Images = [
   {
     id: 1,
-    src: "/images/bg/Slider-1.png",
+    src: "/images/bg/banner-1.png",
     alt: "Imhttpsage 1",
     title: "Lamborghini Huracan Performante",
     description:
@@ -13,7 +13,7 @@ const Images = [
   },
   {
     id: 2,
-    src: "/images/bg/Slider-1.png",
+    src: "/images/bg/banner-2.png",
     alt: "Image 2 ",
     title: "Porsche 911 Turbo S",
     description:

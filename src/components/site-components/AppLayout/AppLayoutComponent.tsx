@@ -19,10 +19,10 @@ export default function AppLayoutComponent({
   const theme = createTheme({
     palette: {
       primary: {
-        main: "#BF8C09",
+        main: "#065405",
       },
       secondary: {
-        main: "#fff",
+        main: "#f1e3d3",
       },
     },
     typography: {
@@ -63,7 +63,6 @@ export default function AppLayoutComponent({
         sx={{
           flexGrow: 1,
           minHeight: "100vh",
-          marginTop: "150px",
         }}
       >
         <ThemeProvider theme={theme}>{children}</ThemeProvider>

@@ -28,7 +28,7 @@ import useUser from "@/customHooks/useUser";
 import { getSessionStorageItem } from "@/shared/SharedService/StorageService";
 
 const StyledNavButton = styled(Button)`
-  color: black;
+  color: var(--app-bar-text-color);
   text-transform: uppercase;
   font-weight: bold;
   padding: 8px 12px;
@@ -143,11 +143,11 @@ const SiteNavBar = () => {
     <>
       <Box
         sx={{
-          backgroundColor: "#f5f5f5",
           padding: "8px 45px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          flexGrow: 1,
         }}
       >
         {isMobile ? (
@@ -174,18 +174,21 @@ const SiteNavBar = () => {
 
         <Box display="flex" alignItems="center">
           <IconButton
-            color={user?.userId ? "primary" : "default"}
+            sx={{
+              color: user?.userId ? "primary" : "var(--app-bar-text-color)",
+            }}
             onClick={(e) =>
               !user?.userId ? router.push("/sign-in") : handleProfileMenuOpen(e)
             }
           >
             <PersonOutlineIcon />
           </IconButton>
-          <IconButton>
+          <IconButton sx={{ color: "var(--app-bar-text-color)" }}>
             <Badge
               badgeContent={`${itemCount}`}
-              color="primary"
               onClick={onNavigateToCheckoutPage}
+              sx={{ display: !itemCount ? "none" : "" }}
+              color="secondary"
             >
               <ShoppingCartOutlinedIcon />
             </Badge>

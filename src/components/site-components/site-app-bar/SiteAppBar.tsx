@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { AppBar, Toolbar, Typography, IconButton, Box } from "@mui/material";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
@@ -10,25 +10,30 @@ const SiteAppBar = () => {
     <AppBar
       position="fixed"
       sx={{
-        backgroundColor: "white",
+        backgroundColor: "#065405",
         color: "black",
         boxShadow: "none",
         border: "none",
-        height: "70px",
+        height: "100px",
       }}
     >
       <Toolbar>
-        <Box display="flex" alignItems="center" flexGrow={1}>
+        <Box display="flex" alignItems="center">
           <Image
-            src="/images/logo/logo.jpg"
+            src="/images/logo/logo.png"
             alt="Vegist Logo"
-            height={55}
-            width={55}
+            height={100}
+            width={100}
           />
         </Box>
-        <Box display="flex" alignItems="center">
+        <SiteNavBar />
+        <Box
+          display="flex"
+          alignItems="center"
+          sx={{ color: "var(--app-bar-text-color)" }}
+        >
           <Box display="flex" alignItems="center" marginRight="16px">
-            <IconButton color="primary">
+            <IconButton sx={{ color: "var(--app-bar-text-color)" }}>
               <PhoneIcon />
             </IconButton>
             <Box>
@@ -37,7 +42,7 @@ const SiteAppBar = () => {
             </Box>
           </Box>
           <Box display="flex" alignItems="center" marginRight="30px">
-            <IconButton color="primary">
+            <IconButton sx={{ color: "var(--app-bar-text-color)" }}>
               <EmailIcon />
             </IconButton>
             <Box>
@@ -47,11 +52,11 @@ const SiteAppBar = () => {
           </Box>
         </Box>
       </Toolbar>
-      <Box sx={{ marginBottom: "30px" }}>
+      {/* <Box sx={{ marginBottom: "30px" }}>
         <Suspense fallback={<div>Loading Nav...</div>}>
           <SiteNavBar />
         </Suspense>
-      </Box>
+      </Box> */}
     </AppBar>
   );
 };
