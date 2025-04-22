@@ -23,6 +23,7 @@ export default function ShopOrders() {
 
   const [orders, setOrders] = useState<IOrder[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [statusLoader, setStatusUpdateLoader] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [confirmModalOpen, setConfirmModalOpen] = useState<boolean>(false);
   const [orderStatuses, setOrderStatuses] = useState<IOrderStatus[]>([]);
@@ -89,7 +90,9 @@ export default function ShopOrders() {
         shopId: shopData.user.shopId || 0,
         ...payload,
       };
+      setStatusUpdateLoader(true);
       const response = await updateOrderStatus(payloadData);
+      setStatusUpdateLoader(false);
       setConfirmModalOpen(false);
       if (response === 1) {
         fetchOrders();
@@ -154,6 +157,7 @@ export default function ShopOrders() {
       {selectedStatusToChange && (
         <ConfirmModal
           open={confirmModalOpen}
+          loading={statusLoader}
           onSubmit={(isOpen) => onConfirm(isOpen)}
           message="Are you sure you want to change the Status of this Order?"
           title="Confirm"

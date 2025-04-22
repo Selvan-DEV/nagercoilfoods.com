@@ -6,16 +6,18 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { NextPage } from "next";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 interface IPageProps {
   title: string;
   open: boolean;
   message: string;
+  loading: boolean;
   onSubmit: (isConfrim: boolean) => void;
 }
 
 const ConfirmModal: NextPage<IPageProps> = (props) => {
-  const { title, open, onSubmit, message } = props;
+  const { title, open, onSubmit, message, loading } = props;
   return (
     <React.Fragment>
       <Dialog
@@ -31,10 +33,15 @@ const ConfirmModal: NextPage<IPageProps> = (props) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => onSubmit(false)}>Disagree</Button>
-          <Button onClick={() => onSubmit(true)} autoFocus>
-            Agree
-          </Button>
+          <Button onClick={() => onSubmit(false)}>Cancel</Button>
+          <LoadingButton
+            onClick={() => onSubmit(true)}
+            loading={loading}
+            loadingPosition="start"
+            autoFocus
+          >
+            Confirm
+          </LoadingButton>
         </DialogActions>
       </Dialog>
     </React.Fragment>

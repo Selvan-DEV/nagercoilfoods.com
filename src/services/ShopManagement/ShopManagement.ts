@@ -183,3 +183,12 @@ export const getAllReviewsByShopId = async (): Promise<IReviewShopView[]> => {
     throw error;
   }
 };
+
+export const productAction = async (product: { productId: number; isPopular: number; }) => {
+  try {
+    const response = await adminAxiosInstance.put<{ productId: number; isPopular: number; }>(`/shop/${shopId}/product-action`, product);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

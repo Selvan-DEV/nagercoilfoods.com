@@ -10,8 +10,12 @@ import {
   Typography,
   Box,
   Avatar,
+  IconButton,
+  Menu,
+  MenuItem,
 } from "@mui/material";
 import {
+  IOrderStatus,
   IRecentOrderProducts,
   IRecentOrders,
 } from "@/app/(admin)/shop-management/model/ShopManagementModel";
@@ -23,16 +27,53 @@ import DateTimeComponent from "@/shared/StandaredDateTime/DateTime";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { getOrdersByShopId } from "@/services/ShopManagement/ShopManagement";
 import Link from "next/link";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 interface IPageProps {
   recentOrders: IRecentOrders[];
   pageTitle: string;
   shopId: number;
+  orderStatuses: IOrderStatus[];
+  onStatusChange: (payload: { orderId: number; orderStatusId: number }) => void;
 }
 
 const OrderTable: NextPage<IPageProps> = (props) => {
-  const { recentOrders, pageTitle, shopId } = props;
+  const { recentOrders, pageTitle, shopId, orderStatuses, onStatusChange } =
+    props;
   const [loading, setLoading] = useState<boolean>(false);
+  const [anchorEl, setAnchorEl] = useState<{
+    [key: number]: HTMLElement | null;
+  }>({});
+  const open = Boolean(anchorEl);
+
+  const handleClick = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    index: number
+  ) => {
+    setAnchorEl((prev) => ({ ...prev, [index]: event.currentTarget }));
+  };
+
+  const handleClose = (index: number) => {
+    setAnchorEl((prev) => ({ ...prev, [index]: null }));
+  };
+
+  const handleOnStatusSelect = (
+    selectedOrderStatusId: number,
+    index: number
+  ) => {
+    if (!selectedOrderStatusId || index < 0) {
+      return;
+    }
+
+    const orderId = recentOrders[index].orderId;
+
+    const payload = {
+      orderId: orderId,
+      orderStatusId: selectedOrderStatusId,
+    };
+
+    onStatusChange(payload);
+  };
 
   const handleExport = async () => {
     try {
@@ -112,10 +153,11 @@ const OrderTable: NextPage<IPageProps> = (props) => {
                 >
                   Delivery Status
                 </TableCell>
+                <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {recentOrders.map((row) => (
+              {recentOrders.map((row, index) => (
                 <TableRow
                   key={row.orderId}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -172,6 +214,38 @@ const OrderTable: NextPage<IPageProps> = (props) => {
                     sx={{ borderBottom: "1px solid #e0e0e0" }}
                   >
                     <ChipComponent value={row.orderStatus || ""} />
+                  </TableCell>
+                  <TableCell>
+                    <IconButton
+                      aria-label="more"
+                      id="long-button"
+                      aria-controls={open ? "long-menu" : undefined}
+                      aria-expanded={open ? "true" : undefined}
+                      aria-haspopup="true"
+                      onClick={(event) => handleClick(event, index)}
+                    >
+                      <MoreVertIcon />
+                    </IconButton>
+                    <Menu
+                      id="long-menu"
+                      MenuListProps={{
+                        "aria-labelledby": "long-button",
+                      }}
+                      anchorEl={anchorEl[index]}
+                      open={Boolean(anchorEl[index])}
+                      onClose={() => handleClose(index)}
+                    >
+                      {orderStatuses.map((option) => (
+                        <MenuItem
+                          key={option.orderStatusId}
+                          onClick={() =>
+                            handleOnStatusSelect(option.orderStatusId, index)
+                          }
+                        >
+                          {option.orderStatusName}
+                        </MenuItem>
+                      ))}
+                    </Menu>
                   </TableCell>
                 </TableRow>
               ))}

@@ -73,6 +73,7 @@ const OrderList: NextPage<IPageProps> = (props) => {
   ) => {
     setAnchorEl((prev) => ({ ...prev, [index]: event.currentTarget }));
   };
+
   const handleClose = (index: number) => {
     setAnchorEl((prev) => ({ ...prev, [index]: null }));
   };

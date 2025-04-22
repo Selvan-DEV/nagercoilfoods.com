@@ -1,7 +1,6 @@
-import React from "react";
-import { Box, Card, CardMedia, Typography, Button, Chip } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Card, CardMedia, Typography, Chip } from "@mui/material";
 import styled from "@emotion/styled";
-import Ratings from "../ratings/Ratings";
 import StarIcon from "@mui/icons-material/Star";
 import { useCartStore } from "@/store/site-store/useCartStore";
 import useUser from "@/customHooks/useUser";
@@ -9,6 +8,7 @@ import { IProduct } from "@/models/IProduct";
 import { IAddOrUpdateCartPayload } from "@/models/OrderManagement/IAddOrUpdateCartPayload";
 import Rupee from "@/shared/Rupee/Rupee";
 import { getSessionStorageItem } from "@/shared/SharedService/StorageService";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const StyledTypography = styled(Typography)`
   transition: color 0.3s ease-in-out;
@@ -27,8 +27,10 @@ const ProductCardBeta = (props: {
   const { product, onClick, fetchProducts } = props;
   const userId = useUser()?.userId;
   const addToCart = useCartStore((state) => state.addToCart);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const onAddToCart = async (product: IProduct) => {
+    setLoading(true);
     const sessionId = getSessionStorageItem("sessionId");
     const payload = {
       productId: product.id,
@@ -37,6 +39,9 @@ const ProductCardBeta = (props: {
       quantity: 1,
     } as IAddOrUpdateCartPayload;
     addToCart(payload);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
   };
 
   return (
@@ -51,7 +56,6 @@ const ProductCardBeta = (props: {
           width: 300,
           padding: 2,
           textAlign: "center",
-          cursor: "pointer",
         }}
       >
         {product.averageRating ? (
@@ -86,6 +90,7 @@ const ProductCardBeta = (props: {
             height: "50px",
             color: "#333333",
             fontSize: "17px",
+            cursor: "pointer",
           }}
         >
           {product.productName}
@@ -99,13 +104,14 @@ const ProductCardBeta = (props: {
             gap: "5px",
           }}
         >
-          <Button
+          <LoadingButton
             variant="outlined"
             fullWidth
+            loading={loading}
             onClick={() => onAddToCart(product)}
           >
-            ADD TO CART
-          </Button>
+            {loading ? "...loading" : "ADD TO CART"}
+          </LoadingButton>
         </Box>
 
         {/* <Ratings productId={product.id || 0} fetchProducts={fetchProducts} /> */}

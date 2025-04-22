@@ -3,6 +3,7 @@ import { addToCartProduct, fetchCartItems } from '@/services/ProductManagement/P
 import { getSessionStorageItem, getUserData, setItemToSessionStorage } from '@/shared/SharedService/StorageService';
 import { create } from 'zustand';
 import { persist, PersistStorage } from 'zustand/middleware';
+import { useUserStore } from './useUserStore';
 
 type CartState = {
   cart: IAddOrUpdateCartPayload[];
@@ -57,7 +58,8 @@ export const useCartStore = create<CartState>()(
           const res = await addToCartProduct(item);
           if (res) {
             setItemToSessionStorage("sessionId", res.sessionId);
-            const userId = getUserData()?.userId || 0;
+            const userId = useUserStore.getState().user?.user.userId;
+
             await get().fetchCart(userId || res.sessionId);
           }
         } catch (error) {

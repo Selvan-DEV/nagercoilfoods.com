@@ -85,16 +85,7 @@ const SiteNavBar = () => {
 
   const onNavigateToCheckoutPage = () => {
     router.push("/checkout");
-    // if (user.userId) {
-    //   router.push("/checkout");
-    // } else {
-    //   openLoginModal();
-    // }
   };
-
-  // const openLoginModal = () => {
-  //   setOpenSignInModal(true);
-  // };
 
   const onNavigate = (route: string): void => {
     handleMenuClose();

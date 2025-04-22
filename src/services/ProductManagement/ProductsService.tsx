@@ -97,3 +97,15 @@ export const fetchProductReviewsByProductId = async (productId: number) => {
     throw error;
   }
 };
+
+export const getPopularProducts = async () => {
+  try {
+    const response = await axiosInstance.get<IProduct[]>(
+      "/products/popular-products"
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Failed to get Producrs:", error);
+    throw error;
+  }
+};

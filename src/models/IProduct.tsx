@@ -40,6 +40,7 @@ export interface IProduct {
   averageRating: number;
   reviewCount: number;
   variantId: number;
+  isPopular: boolean;
 }
 
 export interface IProductPriceVariant {

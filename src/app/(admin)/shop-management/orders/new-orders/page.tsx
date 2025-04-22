@@ -4,10 +4,18 @@ import RecentOrders from "@/components/admin-panel/recent-orders/RecentOrders";
 import { getRecentOrdersList } from "@/services/ShopManagement/ShopDashboard";
 import { Box, CircularProgress, Paper } from "@mui/material";
 import React, { useCallback, useEffect, useState } from "react";
-import { IRecentOrders } from "../../model/ShopManagementModel";
+import { IOrderStatus, IRecentOrders } from "../../model/ShopManagementModel";
 import { io } from "socket.io-client";
 import { getSessionStorageItem } from "@/shared/SharedService/StorageService";
 import { ILoginResponse } from "@/models/UserManagement/IUserData";
+import {
+  getOrderStatuses,
+  updateOrderStatus,
+} from "@/services/ShopManagement/ShopManagement";
+import showErrorToast, { ErrorResponse } from "@/components/showErrorToast";
+import { AxiosError } from "axios";
+import { toast } from "react-toastify";
+import ConfirmModal from "@/shared/ConfirmModal/ConfirmModal";
 
 const socket = io(process.env.NEXT_PUBLIC_SOCKET_URL);
 
@@ -16,7 +24,14 @@ export default function NewOrdersPage() {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [recentOrders, setRecentOrders] = useState<IRecentOrders[]>([]);
+  const [orderStatuses, setOrderStatuses] = useState<IOrderStatus[]>([]);
   const [shopId, setShopId] = useState<number>(0);
+  const [confirmModalOpen, setConfirmModalOpen] = useState<boolean>(false);
+  const [statusLoader, setStatusUpdateLoader] = useState<boolean>(false);
+  const [selectedStatusToChange, setSelectedStatus] = useState<{
+    orderId: number;
+    orderStatusId: number;
+  } | null>(null);
 
   useEffect(() => {
     if (shopData && shopData.user && shopData.user.shopId) {
@@ -34,6 +49,24 @@ export default function NewOrdersPage() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    async function fetchOrderStatuses(): Promise<void> {
+      if (!shopId) return;
+      setLoading(true);
+      try {
+        const response = await getOrderStatuses(shopId);
+        setOrderStatuses(response);
+      } catch (error) {
+        const axiosError = error as AxiosError<ErrorResponse>;
+        showErrorToast(axiosError);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchOrderStatuses();
+  }, [shopId]);
 
   const getRecentOrders = useCallback(async () => {
     if (!shopId) return;
@@ -55,6 +88,51 @@ export default function NewOrdersPage() {
     getRecentOrders();
   }, [getRecentOrders]);
 
+  const onStatusChange = (payload: {
+    orderId: number;
+    orderStatusId: number;
+  }) => {
+    if (!payload) {
+      return;
+    }
+    setSelectedStatus(payload);
+    setConfirmModalOpen(true);
+  };
+
+  const onConfirm = (isConfirmed: boolean) => {
+    if (!isConfirmed) {
+      setConfirmModalOpen(false);
+      return;
+    }
+
+    if (selectedStatusToChange) {
+      changeOrderStatus(selectedStatusToChange);
+    }
+  };
+
+  const changeOrderStatus = async (payload: {
+    orderId: number;
+    orderStatusId: number;
+  }) => {
+    try {
+      const payloadData = {
+        shopId: shopData.user.shopId || 0,
+        ...payload,
+      };
+      setStatusUpdateLoader(true);
+      const response = await updateOrderStatus(payloadData);
+      setStatusUpdateLoader(false);
+      setConfirmModalOpen(false);
+      if (response === 1) {
+        getRecentOrders();
+        toast.success("Order Status Updated Sucessfully");
+      }
+    } catch (error) {
+      const axiosError = error as AxiosError<ErrorResponse>;
+      showErrorToast(axiosError);
+    }
+  };
+
   return (
     <Box sx={{ p: 3 }}>
       {loading ? (
@@ -75,6 +153,18 @@ export default function NewOrdersPage() {
           recentOrders={recentOrders}
           pageTitle="New Orders"
           shopId={shopId}
+          orderStatuses={orderStatuses}
+          onStatusChange={onStatusChange}
+        />
+      )}
+
+      {selectedStatusToChange && (
+        <ConfirmModal
+          open={confirmModalOpen}
+          loading={statusLoader}
+          onSubmit={(isOpen) => onConfirm(isOpen)}
+          message="Are you sure you want to change the Status of this Order?"
+          title="Confirm"
         />
       )}
     </Box>

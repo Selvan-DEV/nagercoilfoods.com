@@ -52,11 +52,6 @@ const SiteAppBar = () => {
           </Box>
         </Box>
       </Toolbar>
-      {/* <Box sx={{ marginBottom: "30px" }}>
-        <Suspense fallback={<div>Loading Nav...</div>}>
-          <SiteNavBar />
-        </Suspense>
-      </Box> */}
     </AppBar>
   );
 };
