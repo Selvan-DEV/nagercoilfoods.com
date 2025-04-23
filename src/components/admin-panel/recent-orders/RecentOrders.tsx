@@ -153,7 +153,7 @@ const OrderTable: NextPage<IPageProps> = (props) => {
                 >
                   Delivery Status
                 </TableCell>
-                <TableCell>Action</TableCell>
+                {pageTitle === "New Orders" && <TableCell>Action</TableCell>}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -215,38 +215,40 @@ const OrderTable: NextPage<IPageProps> = (props) => {
                   >
                     <ChipComponent value={row.orderStatus || ""} />
                   </TableCell>
-                  <TableCell>
-                    <IconButton
-                      aria-label="more"
-                      id="long-button"
-                      aria-controls={open ? "long-menu" : undefined}
-                      aria-expanded={open ? "true" : undefined}
-                      aria-haspopup="true"
-                      onClick={(event) => handleClick(event, index)}
-                    >
-                      <MoreVertIcon />
-                    </IconButton>
-                    <Menu
-                      id="long-menu"
-                      MenuListProps={{
-                        "aria-labelledby": "long-button",
-                      }}
-                      anchorEl={anchorEl[index]}
-                      open={Boolean(anchorEl[index])}
-                      onClose={() => handleClose(index)}
-                    >
-                      {orderStatuses.map((option) => (
-                        <MenuItem
-                          key={option.orderStatusId}
-                          onClick={() =>
-                            handleOnStatusSelect(option.orderStatusId, index)
-                          }
-                        >
-                          {option.orderStatusName}
-                        </MenuItem>
-                      ))}
-                    </Menu>
-                  </TableCell>
+                  {pageTitle === "New Orders" && (
+                    <TableCell>
+                      <IconButton
+                        aria-label="more"
+                        id="long-button"
+                        aria-controls={open ? "long-menu" : undefined}
+                        aria-expanded={open ? "true" : undefined}
+                        aria-haspopup="true"
+                        onClick={(event) => handleClick(event, index)}
+                      >
+                        <MoreVertIcon />
+                      </IconButton>
+                      <Menu
+                        id="long-menu"
+                        MenuListProps={{
+                          "aria-labelledby": "long-button",
+                        }}
+                        anchorEl={anchorEl[index]}
+                        open={Boolean(anchorEl[index])}
+                        onClose={() => handleClose(index)}
+                      >
+                        {(orderStatuses || []).map((option) => (
+                          <MenuItem
+                            key={option.orderStatusId}
+                            onClick={() =>
+                              handleOnStatusSelect(option.orderStatusId, index)
+                            }
+                          >
+                            {option.orderStatusName}
+                          </MenuItem>
+                        ))}
+                      </Menu>
+                    </TableCell>
+                  )}
                 </TableRow>
               ))}
             </TableBody>

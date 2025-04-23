@@ -33,6 +33,7 @@ import {
   getProductByShopIdAndProductId,
 } from "@/services/ShopManagement/ShopManagement";
 import { getSessionStorageItem } from "@/shared/SharedService/StorageService";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const ProductForm = (props: { productId?: number }) => {
   const router = useRouter();
@@ -97,6 +98,11 @@ const ProductForm = (props: { productId?: number }) => {
       const formValues = values as unknown as IProduct;
       formValues.shopId = shopData?.shopId || 0;
       formValues.visibility = "yes";
+      formValues.uniqueName = formValues.productName
+        .trim()
+        .split(" ")
+        .join("-")
+        .toLowerCase();
       try {
         if (!productId) {
           const response = await createProduct(formValues);
@@ -537,14 +543,19 @@ const ProductForm = (props: { productId?: number }) => {
                   ])
                 }
               >
-                Add Variant
+                {"Add Variant"}
               </Button>
             </Grid>
           </Grid>
           <Box mt={4}>
-            <Button type="submit" variant="contained" color="primary">
-              {!productId ? "Submit" : "Update"}
-            </Button>
+            <LoadingButton
+              type="submit"
+              variant="contained"
+              color="primary"
+              loading={loading}
+            >
+              {loading ? "...loading" : !productId ? "Submit" : "Update"}
+            </LoadingButton>
           </Box>
         </form>
       </Paper>

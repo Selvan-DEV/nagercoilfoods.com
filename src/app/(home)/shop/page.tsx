@@ -1,7 +1,5 @@
 "use client";
 
-import CustomizedInputBase from "@/components/site-components/controls/CustomizedInputBase";
-import ProductSearchFilters from "@/components/site-components/Web/ProductManagement/SearchFilters/ProductSearchFilters";
 import ProductSearchResults from "@/components/site-components/Web/ProductManagement/SearchResults/ProductSearchResults";
 import showErrorToast, { ErrorResponse } from "@/components/showErrorToast";
 import { IProduct, ICategoriesWithProducts } from "@/models/IProduct";
@@ -77,9 +75,7 @@ export default function ProductPage() {
 
   return (
     <Container>
-      <Box sx={{ marginTop: "170px" }}>
-        <CustomizedInputBase />
-      </Box>
+      <Box sx={{ marginTop: "170px" }}>{/* <CustomizedInputBase /> */}</Box>
       <Grid
         container
         md={12}
@@ -90,11 +86,11 @@ export default function ProductPage() {
         }}
       >
         {/* Price Filter */}
-        <ProductSearchFilters
+        {/* <ProductSearchFilters
           categories={categories}
           setPriceRange={setPriceRange}
           priceRange={priceRange}
-        />
+        /> */}
 
         {/* Products Grid */}
         <ProductSearchResults

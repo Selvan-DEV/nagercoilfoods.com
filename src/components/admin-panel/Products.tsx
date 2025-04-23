@@ -130,7 +130,7 @@ const ProductTable: NextPage<IPageProps> = (props) => {
                     </Typography>
                   </Tooltip>
                 </TableCell>
-                <TableCell>{product.categoryId}</TableCell>
+                <TableCell>{product.categoryName}</TableCell>
                 <TableCell>
                   ₹{product.price}
                   <Typography

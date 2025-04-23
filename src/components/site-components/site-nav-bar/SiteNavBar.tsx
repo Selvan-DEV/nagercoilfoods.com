@@ -16,6 +16,8 @@ import {
   List,
   ListItem,
   ListItemText,
+  Typography,
+  Divider,
 } from "@mui/material";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
@@ -26,6 +28,8 @@ import { useCartStore } from "@/store/site-store/useCartStore";
 import { useUserStore } from "@/store/site-store/useUserStore";
 import useUser from "@/customHooks/useUser";
 import { getSessionStorageItem } from "@/shared/SharedService/StorageService";
+import PhoneIcon from "@mui/icons-material/Phone";
+import EmailIcon from "@mui/icons-material/Email";
 
 const StyledNavButton = styled(Button)`
   color: var(--app-bar-text-color);
@@ -137,12 +141,20 @@ const SiteNavBar = () => {
           padding: "8px 45px",
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: {
+            md: "space-between",
+            xl: "space-between",
+            sm: "space-between",
+            xs: "flex-end",
+          },
           flexGrow: 1,
         }}
       >
         {isMobile ? (
-          <IconButton onClick={toggleDrawer(true)}>
+          <IconButton
+            onClick={toggleDrawer(true)}
+            sx={{ color: "var(--app-bar-text-color)" }}
+          >
             <MenuIcon />
           </IconButton>
         ) : (
@@ -191,7 +203,6 @@ const SiteNavBar = () => {
 
       <Drawer anchor="top" open={isDrawerOpen} onClose={toggleDrawer(false)}>
         <Box
-          sx={{ width: 250 }}
           role="presentation"
           onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
@@ -203,6 +214,33 @@ const SiteNavBar = () => {
               </ListItem>
             ))}
           </List>
+          <Divider sx={{ my: 1 }} />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              paddingBottom: "10px",
+            }}
+          >
+            <Box display="flex" alignItems="center" marginRight="16px">
+              <IconButton sx={{ color: "var(--app-bar-text-color)" }}>
+                <PhoneIcon />
+              </IconButton>
+              <Box>
+                <Typography variant="body2">Call now :</Typography>
+                <Typography variant="body2">2800 0500 2800</Typography>
+              </Box>
+            </Box>
+            <Box display="flex" alignItems="center" marginRight="30px">
+              <IconButton sx={{ color: "var(--app-bar-text-color)" }}>
+                <EmailIcon />
+              </IconButton>
+              <Box>
+                <Typography variant="body2">Email now :</Typography>
+                <Typography variant="body2">Info@gmail.com</Typography>
+              </Box>
+            </Box>
+          </Box>
         </Box>
       </Drawer>
     </>

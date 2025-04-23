@@ -15,7 +15,7 @@ const CustomButtonStyled = styled(Button)`
   gap: 8px;
 
   &:hover {
-    background-color: #976f08;
+    background-color: var(--primary-color);
   }
 `;
 

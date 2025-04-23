@@ -107,6 +107,16 @@ const HomeFooter = () => {
             </Box>
           </Grid>
         </Grid>
+        <Grid item xs={12}>
+          <Typography
+            variant="body2"
+            align="center"
+            color="textSecondary"
+            mt={2}
+          >
+            © {new Date().getFullYear()} Your Digital Firm. All rights reserved.
+          </Typography>
+        </Grid>
       </Container>
     </Box>
   );
