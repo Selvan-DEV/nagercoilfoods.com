@@ -75,7 +75,7 @@ export default function ProductPage() {
 
   return (
     <Container>
-      <Box sx={{ marginTop: "170px" }}>{/* <CustomizedInputBase /> */}</Box>
+      <Box>{/* <CustomizedInputBase /> */}</Box>
       <Grid
         container
         md={12}

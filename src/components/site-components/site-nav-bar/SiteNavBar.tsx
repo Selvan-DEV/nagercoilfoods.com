@@ -46,7 +46,6 @@ const pages = [
   { page: "Home", url: "/" },
   { page: "Shop", url: "/shop" },
   { page: "About Us", url: "/about-us" },
-  { page: "Contact", url: "/contact" },
   { page: "Reviews", url: "/reviews" },
 ];
 
@@ -178,7 +177,9 @@ const SiteNavBar = () => {
         <Box display="flex" alignItems="center">
           <IconButton
             sx={{
-              color: user?.userId ? "primary" : "var(--app-bar-text-color)",
+              color: user?.userId
+                ? "var(--app-bar-text-color)"
+                : "var(--app-bar-text-color)",
             }}
             onClick={(e) =>
               !user?.userId ? router.push("/sign-in") : handleProfileMenuOpen(e)

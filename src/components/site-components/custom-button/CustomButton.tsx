@@ -19,11 +19,11 @@ const CustomButtonStyled = styled(Button)`
   }
 `;
 
-const CustomButton = (props: { onClick: () => void }) => {
-  const { onClick } = props;
+const CustomButton = (props: { onClick: () => void; name: string }) => {
+  const { onClick, name } = props;
   return (
     <CustomButtonStyled onClick={onClick}>
-      All Products
+      {name}
       <ArrowForwardIcon />
     </CustomButtonStyled>
   );

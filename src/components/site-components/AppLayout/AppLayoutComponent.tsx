@@ -63,6 +63,7 @@ export default function AppLayoutComponent({
         sx={{
           flexGrow: 1,
           minHeight: "100vh",
+          marginTop: "130px",
         }}
       >
         <ThemeProvider theme={theme}>{children}</ThemeProvider>

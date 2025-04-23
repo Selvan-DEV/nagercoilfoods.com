@@ -175,9 +175,9 @@ export const updateReviewStatus = async (reviewId: number, isShow: boolean): Pro
   }
 };
 
-export const getAllReviewsByShopId = async (): Promise<IReviewShopView[]> => {
+export const getAllReviewsByShopId = async (isShow: number): Promise<IReviewShopView[]> => {
   try {
-    const response = await adminAxiosInstance.get(`/shop/${shopId}/reviews`);
+    const response = await adminAxiosInstance.get(`/shop/${1}/reviews?isShow=${isShow}`);
     return response.data;
   } catch (error) {
     throw error;

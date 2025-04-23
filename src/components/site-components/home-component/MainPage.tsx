@@ -17,7 +17,7 @@ const MainPage = () => {
   // Slider settings for Top Sale Carousel
 
   return (
-    <Box marginTop={"190px"}>
+    <Box>
       {/* Main Banner */}
       <MainPageSlider />
 

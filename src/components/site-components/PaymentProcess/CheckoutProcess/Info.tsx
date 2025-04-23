@@ -107,24 +107,6 @@ const Info: NextPage<IPageProps> = (props) => {
     try {
       await updateCartItem({ cartItemId, quantity });
       fetchCart(userId || sessionId);
-
-      // switch (getValues("shippingAddress.state")) {
-      //   case "Tamil Nadu":
-      //   case "Kerala":
-      //   case "Karnataka":
-      //   case "Andhra Pradesh":
-      //   case "Telangana":
-      //     setValue("deliveryCharge", DeliveryCharges.tamilNadu, {
-      //       shouldValidate: true,
-      //     });
-      //     break;
-
-      //   default:
-      //     setValue("deliveryCharge", DeliveryCharges.otherState, {
-      //       shouldValidate: true,
-      //     });
-      //     break;
-      // }
     } catch (error) {
       console.error("Update error:", error);
     } finally {

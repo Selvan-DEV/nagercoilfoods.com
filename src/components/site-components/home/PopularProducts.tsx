@@ -72,7 +72,10 @@ export default function PopularProducts() {
         flexDirection={"row"}
         marginTop="50px"
       >
-        <CustomButton onClick={() => router.push("/shop")} />
+        <CustomButton
+          onClick={() => router.push("/shop")}
+          name="All Products"
+        />
       </Box>
     </Box>
   );
