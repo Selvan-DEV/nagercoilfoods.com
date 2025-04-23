@@ -214,7 +214,7 @@ const Info: NextPage<IPageProps> = (props) => {
                         {item.product.productName}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        {item.product.weight}g
+                        {item.variant || item.product.weight}
                       </Typography>
                       <Typography variant="body1" fontWeight="bold">
                         Rs.{item.price}

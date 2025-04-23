@@ -16,6 +16,7 @@ export interface ICartProducts {
   sessionId: string;
   price: number;
   product: IProduct;
+  variant: string;
 }
 
 interface ICartSummary {

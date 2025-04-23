@@ -21,28 +21,6 @@ import { registerCustomer } from "@/services/UserManagementService/UsersService"
 import showErrorToast, { ErrorResponse } from "@/components/showErrorToast";
 import { AxiosError } from "axios";
 
-function Copyright(props: any) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link
-        color="inherit"
-        target="_blank"
-        href="https://my-portfolio-a642e.web.app/"
-      >
-        Manikanda Selvan S
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required("First Name is required"),
   lastName: Yup.string().required("Last Name is required"),
@@ -208,7 +186,6 @@ export default function SignUpComponent() {
           )}
         </Formik>
       </Box>
-      <Copyright sx={{ mt: 5 }} />
     </Container>
   );
 }
