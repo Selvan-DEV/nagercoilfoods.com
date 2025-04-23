@@ -233,7 +233,7 @@ const CheckoutPage = (props: { cartProductsWithSummary: ICartSummayItems }) => {
 
   return (
     <>
-      <Container maxWidth="lg" sx={{ py: 2 }}>
+      <Container maxWidth="lg" sx={{ py: 2, marginTop: "100px" }}>
         <Typography variant="h4" gutterBottom>
           Checkout
         </Typography>

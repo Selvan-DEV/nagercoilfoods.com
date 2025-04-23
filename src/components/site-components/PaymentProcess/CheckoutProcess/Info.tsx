@@ -55,6 +55,7 @@ const Info: NextPage<IPageProps> = (props) => {
   const code = watch("discountCode");
   const discountValue = getValues("discountValue");
   const deliveryCharge = getValues("deliveryCharge");
+  const state = getValues("shippingAddress.state");
 
   const [localQuantities, setLocalQuantities] = useState<{
     [key: number]: number;
@@ -72,11 +73,7 @@ const Info: NextPage<IPageProps> = (props) => {
 
     if (subtotal > freeDeliveryThreshold) {
       delivery = 0;
-    } else {
-      const state = getValues("shippingAddress.state");
-      if (!state) {
-        return;
-      }
+    } else if (state) {
       switch (state) {
         case "Tamil Nadu":
         case "Kerala":
@@ -95,7 +92,7 @@ const Info: NextPage<IPageProps> = (props) => {
 
     const total = subtotal + delivery - discount;
     setTotalAmount(Math.max(0, total));
-  }, [summary, discountValue, setValue, getValues]);
+  }, [summary, discountValue, setValue, getValues, state]);
 
   // Initialize localQuantities once
   useEffect(() => {

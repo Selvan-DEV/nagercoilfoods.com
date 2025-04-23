@@ -129,24 +129,6 @@ const GuestCheckoutForm = ({
       return;
     }
     setValue("shippingAddress.state", state, { shouldValidate: true });
-
-    switch (state) {
-      case "Tamil Nadu":
-      case "Kerala":
-      case "Karnataka":
-      case "Andhra Pradesh":
-      case "Telangana":
-        setValue("deliveryCharge", DeliveryCharges.tamilNadu, {
-          shouldValidate: true,
-        });
-        break;
-
-      default:
-        setValue("deliveryCharge", DeliveryCharges.otherState, {
-          shouldValidate: true,
-        });
-        break;
-    }
   };
 
   return (

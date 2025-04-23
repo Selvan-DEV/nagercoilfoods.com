@@ -95,7 +95,17 @@ const ProductCardBeta = (props: {
         >
           {product.productName}
         </StyledTypography>
-        <Rupee rupee={product.price} />
+        {Number(product.offerPrice) > 0 ? (
+          <Box>
+            <Rupee rupee={product.price} isLineThrough={true} />
+            <Rupee rupee={Number(product.price) - Number(product.offerPrice)} />
+          </Box>
+        ) : (
+          <Box>
+            <Rupee rupee={product.price} />
+          </Box>
+        )}
+
         <Box
           sx={{
             mt: 2,
@@ -113,8 +123,6 @@ const ProductCardBeta = (props: {
             {loading ? "...loading" : "ADD TO CART"}
           </LoadingButton>
         </Box>
-
-        {/* <Ratings productId={product.id || 0} fetchProducts={fetchProducts} /> */}
       </Card>
     </Box>
   );
