@@ -44,6 +44,8 @@ const AdvancedDashboard: NextPage<IPageProps> = (props) => {
         recentOrders={recentOrders}
         pageTitle="Recent orders"
         shopId={shopId}
+        orderStatuses={[]}
+        onStatusChange={(payload) => console.log(payload)}
       />
     </Box>
   );
