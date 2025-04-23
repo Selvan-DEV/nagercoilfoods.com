@@ -130,6 +130,7 @@ const ClientOrderPage = ({ orderid }: ClientOrderPageProps) => {
         <ConfirmModal
           open={confirmModalOpen}
           onSubmit={onConfirm}
+          loading={false}
           message="Are you sure you want to change the Status of this Order?"
           title="Confirm"
         />

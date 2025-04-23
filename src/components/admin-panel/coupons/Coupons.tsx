@@ -218,6 +218,7 @@ export default function CouponsComponent(props: {
       <ConfirmModal
         open={confirmModalOpen}
         onSubmit={(isOpen) => couponStatusUpdate(isOpen)}
+        loading={false}
         message="Are you sure you want to change the Status of this Coupon?"
         title="Confirm"
       />
