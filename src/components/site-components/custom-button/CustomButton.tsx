@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 
 const CustomButtonStyled = styled(Button)`
   background-color: var(--primary-color);
-  color: white;
+  color: var(--app-bar-text-color);
   border-radius: 50px;
   padding: 12px 24px;
   font-weight: bold;

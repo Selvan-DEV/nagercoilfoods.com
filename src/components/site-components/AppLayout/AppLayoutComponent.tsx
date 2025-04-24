@@ -19,7 +19,7 @@ export default function AppLayoutComponent({
   const theme = createTheme({
     palette: {
       primary: {
-        main: "#065405",
+        main: "#000000",
       },
       secondary: {
         main: "#f1e3d3",

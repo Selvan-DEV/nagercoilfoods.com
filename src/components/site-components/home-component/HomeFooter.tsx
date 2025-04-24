@@ -8,16 +8,38 @@ const HomeFooter = () => {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={6} md={3}>
             <Typography variant="h6" gutterBottom>
-              Most Selling Products
+              Products
             </Typography>
             <Box
               sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}
             >
-              <Link href="#" variant="body2" display="block">
-                Spicy Banana Chips
+              <Link
+                href="/product-details/nagercoil-banana-chips"
+                variant="body2"
+                display="block"
+              >
+                Nagercoil Nenthiram Chips
               </Link>
-              <Link href="#" variant="body2" display="block">
-                Sweet Banana Chips
+              <Link
+                href="/product-details/nagercoil-special-mixture"
+                variant="body2"
+                display="block"
+              >
+                Nagercoil Special Mixture
+              </Link>
+              <Link
+                href="/product-details/nagercoil-special-seeval"
+                variant="body2"
+                display="block"
+              >
+                Nagercoil Seeval
+              </Link>
+              <Link
+                href="/product-details/nagercoil-special-karacho"
+                variant="body2"
+                display="block"
+              >
+                Nagercoil Karasev
               </Link>
             </Box>
           </Grid>
@@ -28,23 +50,17 @@ const HomeFooter = () => {
             <Box
               sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}
             >
-              <Link href="#" variant="body2" display="block">
-                Track Your Order
+              <Link href="/" variant="body2" display="block">
+                Home
               </Link>
-              <Link href="#" variant="body2" display="block">
-                About NGL Foods
+              <Link href="/shop" variant="body2" display="block">
+                Shop
               </Link>
-              <Link href="#" variant="body2" display="block">
-                Our Team
+              <Link href="/about-us" variant="body2" display="block">
+                About Us
               </Link>
-              <Link href="#" variant="body2" display="block">
-                Contact us
-              </Link>
-              <Link href="#" variant="body2" display="block">
-                Banana Chips
-              </Link>
-              <Link href="#" variant="body2" display="block">
-                All Products
+              <Link href="/reviews" variant="body2" display="block">
+                Reviews
               </Link>
             </Box>
           </Grid>
@@ -56,9 +72,6 @@ const HomeFooter = () => {
               sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}
             >
               <Link href="#" variant="body2" display="block">
-                Track my order
-              </Link>
-              <Link href="#" variant="body2" display="block">
                 Refund Policy
               </Link>
               <Link href="#" variant="body2" display="block">
@@ -69,9 +82,6 @@ const HomeFooter = () => {
               </Link>
               <Link href="#" variant="body2" display="block">
                 Shipping Policy
-              </Link>
-              <Link href="#" variant="body2" display="block">
-                Blog
               </Link>
               <Link href="#" variant="body2" display="block">
                 FAQs
@@ -86,24 +96,14 @@ const HomeFooter = () => {
               sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}
             >
               <Typography variant="body2">
-                Customer care: 1111 00 1111
+                Customer care: +91 80725 24935
               </Typography>
               <Typography variant="body2">
-                Other enquiries: 1111 11 1111
-              </Typography>
-              <Typography variant="body2">
-                <Link href="mailto:nglfoods@gmail.com">
-                  email - nglfoods@gmail.com
+                <Link href="mailto:nilafoods2025@gmail.com">
+                  email - nilafoods2025@gmail.com
                 </Link>
               </Typography>
-              <Typography variant="body2">FSSAI NO: 1111111111111</Typography>
-              <Typography variant="body2">
-                Address - RFGT House Abc, No 34, CFG Nagar, RF Jn, Nagercoil
-                629601
-              </Typography>
-              <Typography variant="body2">
-                <Link href="#">Customer Reviews ⭐ (1000+)</Link>
-              </Typography>
+              <Typography variant="body2">FSSAI NO: 22425086000072</Typography>
             </Box>
           </Grid>
         </Grid>

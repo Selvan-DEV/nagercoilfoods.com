@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={outfit.variable}>
       <head>
-        <title>Nilas-Foods</title>
+        <title>Nila-Foods</title>
       </head>
       <body className={outfit.className}>
         <GlobalLoader />

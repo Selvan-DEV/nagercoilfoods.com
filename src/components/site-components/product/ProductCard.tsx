@@ -76,10 +76,10 @@ const ProductCardBeta = (props: {
         )}
         <CardMedia
           component="img"
-          height="200"
+          height="220"
           image={product.imageUrl}
           alt="Natural soybean"
-          sx={{ objectFit: "contain" }}
+          sx={{ objectFit: "cover" }}
         />
         <StyledTypography
           onClick={() => onClick(product)}

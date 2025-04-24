@@ -21,7 +21,7 @@ const SiteAppBar = () => {
     <AppBar
       position="fixed"
       sx={{
-        backgroundColor: "#065405",
+        backgroundColor: "var(--primary-color)",
         color: "black",
         boxShadow: "none",
         border: "none",
@@ -51,7 +51,7 @@ const SiteAppBar = () => {
                 </IconButton>
                 <Box>
                   <Typography variant="body2">Call now :</Typography>
-                  <Typography variant="body2">2800 0500 2800</Typography>
+                  <Typography variant="body2">+91 80725 24935</Typography>
                 </Box>
               </Box>
               <Box display="flex" alignItems="center" marginRight="30px">
@@ -60,7 +60,9 @@ const SiteAppBar = () => {
                 </IconButton>
                 <Box>
                   <Typography variant="body2">Email now :</Typography>
-                  <Typography variant="body2">Info@gmail.com</Typography>
+                  <Typography variant="body2">
+                    nilafoods2025@gmail.com
+                  </Typography>
                 </Box>
               </Box>
             </>

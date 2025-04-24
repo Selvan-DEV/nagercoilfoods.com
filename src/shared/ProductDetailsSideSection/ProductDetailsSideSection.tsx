@@ -14,23 +14,37 @@ import { Add, Remove } from "@mui/icons-material";
 import Rupee from "../Rupee/Rupee";
 import { IProduct } from "@/models/IProduct";
 import ReviewForm from "@/components/site-components/review-form/ReviewForm";
+import LoadingButton from "@mui/lab/LoadingButton";
+import { useRouter } from "next/navigation";
 
 export default function ProductDetailsSideSection(props: {
   product: IProduct;
   addOrUpdateProductToCart: (cartPayload: IProduct) => void;
   onReviewPosted: (isRefresh: boolean) => void;
 }) {
+  const router = useRouter();
   const { product, addOrUpdateProductToCart, onReviewPosted } = props;
   const [variantId, setVariantId] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [buyNowLoading, setBuyNowLoading] = useState<boolean>(false);
 
-  const addToCart = (): void => {
+  const addToCart = (isBuyNow: boolean): void => {
+    isBuyNow ? setBuyNowLoading(true) : setLoading(true);
     const payload = {
       ...product,
       selectedQuantity: quantity,
       variantId,
     };
     addOrUpdateProductToCart(payload);
+
+    setTimeout(() => {
+      setBuyNowLoading(false);
+      setLoading(false);
+      if (isBuyNow) {
+        router.push("/checkout");
+      }
+    }, 3000);
   };
 
   const handleWeightChange = (
@@ -122,12 +136,25 @@ export default function ProductDetailsSideSection(props: {
 
       {/* Buttons */}
       <Box mt={3} display="flex" flexDirection="column" gap={2}>
-        <Button variant="outlined" fullWidth onClick={() => addToCart()}>
-          Add to cart
-        </Button>
-        <Button variant="contained" fullWidth color="primary">
-          Buy it now
-        </Button>
+        <LoadingButton
+          variant="outlined"
+          fullWidth
+          disabled={loading}
+          loading={loading}
+          onClick={() => addToCart(false)}
+        >
+          {loading ? "...loading" : "Add to cart"}
+        </LoadingButton>
+        <LoadingButton
+          variant="contained"
+          fullWidth
+          disabled={buyNowLoading}
+          loading={buyNowLoading}
+          color="primary"
+          onClick={() => addToCart(true)}
+        >
+          {buyNowLoading ? "...loading" : "Buy it now"}
+        </LoadingButton>
       </Box>
 
       <Divider sx={{ my: 3 }} />

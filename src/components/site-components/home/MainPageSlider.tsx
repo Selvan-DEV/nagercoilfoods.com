@@ -5,7 +5,7 @@ import Slider from "react-slick";
 const Images = [
   {
     id: 1,
-    src: "/images/bg/banner-1.png",
+    src: "/images/bg/banner-1.jpg",
     alt: "Imhttpsage 1",
     title: "Lamborghini Huracan Performante",
     description:
@@ -13,8 +13,16 @@ const Images = [
   },
   {
     id: 2,
-    src: "/images/bg/banner-2.png",
+    src: "/images/bg/banner-2.jpg",
     alt: "Image 2 ",
+    title: "Porsche 911 Turbo S",
+    description:
+      "This Turbo S variant comes with an engine putting out 641 bhp @ 6750 rpm and 800 Nm @ 2500 rpm of max power and max torque respectively.",
+  },
+  {
+    id: 3,
+    src: "/images/bg/banner-3.jpg",
+    alt: "Image 3 ",
     title: "Porsche 911 Turbo S",
     description:
       "This Turbo S variant comes with an engine putting out 641 bhp @ 6750 rpm and 800 Nm @ 2500 rpm of max power and max torque respectively.",
@@ -98,7 +106,7 @@ export default function MainPageSlider() {
               <CardMedia
                 component="img"
                 height="250px"
-                image={"/images/bg/banner-2.png"}
+                image={"/images/bg/sm-banner-1.jpg"}
                 alt="slider-img"
                 sx={{ objectFit: "fill" }}
               />
@@ -108,7 +116,7 @@ export default function MainPageSlider() {
               <CardMedia
                 component="img"
                 height="250px"
-                image={"/images/bg/BG-Image-3.png"}
+                image={"/images/bg/banner-16.png"}
                 alt="slider-img"
                 sx={{ objectFit: "fill" }}
               />
