@@ -1,7 +1,11 @@
 import { IDailyRevenueData, IMonthlyRevenueData, IRecentOrders } from "@/app/(admin)/shop-management/model/ShopManagementModel";
+import { ILoginResponse } from "@/models/UserManagement/IUserData";
+import { getSessionStorageItem } from "@/shared/SharedService/StorageService";
 import adminAxiosInstance from "@/utils/adminAxiosInstance";
 
-export const getRecentOrdersList = async (shopId: number) => {
+const shopId = (getSessionStorageItem("adminData") as ILoginResponse)?.user?.shopId || 0;
+
+export const getRecentOrdersList = async () => {
   try {
     const response = await adminAxiosInstance.get<IRecentOrders[]>(
       `/shop/dashboard/${shopId}/recent-orders`

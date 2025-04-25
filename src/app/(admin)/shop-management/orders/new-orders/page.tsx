@@ -5,7 +5,6 @@ import { getRecentOrdersList } from "@/services/ShopManagement/ShopDashboard";
 import { Box, CircularProgress, Paper } from "@mui/material";
 import React, { useCallback, useEffect, useState } from "react";
 import { IOrderStatus, IRecentOrders } from "../../model/ShopManagementModel";
-import { io } from "socket.io-client";
 import { getSessionStorageItem } from "@/shared/SharedService/StorageService";
 import { ILoginResponse } from "@/models/UserManagement/IUserData";
 import {
@@ -16,8 +15,7 @@ import showErrorToast, { ErrorResponse } from "@/components/showErrorToast";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import ConfirmModal from "@/shared/ConfirmModal/ConfirmModal";
-
-const socket = io(process.env.NEXT_PUBLIC_SOCKET_URL);
+import { initSocket } from "@/lib/socket";
 
 export default function NewOrdersPage() {
   const shopData = getSessionStorageItem("adminData") as ILoginResponse;
@@ -26,6 +24,7 @@ export default function NewOrdersPage() {
   const [recentOrders, setRecentOrders] = useState<IRecentOrders[]>([]);
   const [orderStatuses, setOrderStatuses] = useState<IOrderStatus[]>([]);
   const [shopId, setShopId] = useState<number>(0);
+  const [refreshId, setRefreshId] = useState<number>(0);
   const [confirmModalOpen, setConfirmModalOpen] = useState<boolean>(false);
   const [statusLoader, setStatusUpdateLoader] = useState<boolean>(false);
   const [selectedStatusToChange, setSelectedStatus] = useState<{
@@ -38,17 +37,6 @@ export default function NewOrdersPage() {
       setShopId(shopData.user.shopId);
     }
   }, [shopData, shopId]);
-
-  useEffect(() => {
-    socket.on("orderUpdate", () => {
-      getRecentOrders();
-    });
-
-    return () => {
-      socket.off("orderUpdate");
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     async function fetchOrderStatuses(): Promise<void> {
@@ -68,11 +56,10 @@ export default function NewOrdersPage() {
     fetchOrderStatuses();
   }, [shopId]);
 
-  const getRecentOrders = useCallback(async () => {
-    if (!shopId) return;
+  const getRecentOrders = useCallback(async (isRefreshNeeded: boolean) => {
     try {
-      setLoading(true);
-      const recentOrders = await getRecentOrdersList(shopId);
+      setLoading(isRefreshNeeded);
+      const recentOrders = await getRecentOrdersList();
       setLoading(false);
       if (recentOrders) {
         setRecentOrders(recentOrders);
@@ -81,10 +68,22 @@ export default function NewOrdersPage() {
       console.error(error);
       setLoading(false);
     }
-  }, [shopId]);
+  }, []);
 
   useEffect(() => {
-    getRecentOrders();
+    getRecentOrders(true);
+  }, [getRecentOrders]);
+
+  useEffect(() => {
+    const socket = initSocket();
+
+    socket.on("orderUpdate", (data) => {
+      getRecentOrders(false);
+    });
+
+    return () => {
+      socket.off("orderUpdate");
+    };
   }, [getRecentOrders]);
 
   const onStatusChange = (payload: {
@@ -123,7 +122,7 @@ export default function NewOrdersPage() {
       setStatusUpdateLoader(false);
       setConfirmModalOpen(false);
       if (response === 1) {
-        getRecentOrders();
+        getRecentOrders(true);
         toast.success("Order Status Updated Sucessfully");
       }
     } catch (error) {

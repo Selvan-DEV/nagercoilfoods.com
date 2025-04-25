@@ -38,40 +38,21 @@ export default function ProductPage() {
     getCategories();
   }, [getCategories]);
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      fetchProducts();
-    }, 500);
-
-    return () => clearTimeout(timeoutId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category, product, priceRange, categories]);
-
-  const fetchProducts = async () => {
-    const decodedValue = decodeURIComponent(String(category));
-    const groupName = String(decodedValue).split("_").join(" ");
-
-    const payload = {
-      categoryId: categories.find(
-        (x) => x.categoryName.toLowerCase() === groupName
-      )?.categoryId,
-      search: product,
-      // minPrice:
-      //   (priceRange as number[]).length > 0 ? (priceRange as number[])[0] : 0,
-      // maxPrice:
-      //   (priceRange as number[]).length > 0 ? (priceRange as number[])[1] : 0,
-    };
-
+  const fetchProducts = useCallback(async () => {
     try {
       setLoading(true);
-      const data = await getProducts(payload);
+      const data = await getProducts(null);
       setProducts(data);
     } catch (error) {
       showErrorToast(error as AxiosError<ErrorResponse>);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
   return (
     <Container>

@@ -57,10 +57,9 @@ export default function ShopDashbord() {
   }, [fetchSummaryCards, shopData?.user?.shopId]);
 
   const getRecentOrders = useCallback(async () => {
-    if (!shopData?.user?.shopId) return;
     try {
       setLoading(true);
-      const recentOrders = await getRecentOrdersList(shopData.user.shopId);
+      const recentOrders = await getRecentOrdersList();
       setLoading(false);
       if (recentOrders) {
         setRecentOrders(recentOrders.slice(0, 5));
@@ -70,7 +69,7 @@ export default function ShopDashbord() {
     } finally {
       setLoading(false);
     }
-  }, [shopData?.user?.shopId]);
+  }, []);
 
   useEffect(() => {
     getRecentOrders();
