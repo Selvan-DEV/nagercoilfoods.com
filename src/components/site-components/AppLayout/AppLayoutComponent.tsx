@@ -64,6 +64,7 @@ export default function AppLayoutComponent({
           flexGrow: 1,
           minHeight: "100vh",
           marginTop: "130px",
+          paddingBottom: "30px",
         }}
       >
         <ThemeProvider theme={theme}>{children}</ThemeProvider>

@@ -49,14 +49,7 @@ const CheckoutReviewDialog: React.FC<Props> = ({
   cartProductsWithSummary,
 }) => {
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      maxWidth="md"
-      fullWidth
-      disableEscapeKeyDown
-      hideBackdrop
-    >
+    <Dialog open={open} maxWidth="md" fullWidth disableEscapeKeyDown>
       <DialogTitle>Confirm Your Details</DialogTitle>
       <DialogContent dividers>
         <Grid container spacing={4}>

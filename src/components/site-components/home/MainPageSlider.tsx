@@ -116,7 +116,7 @@ export default function MainPageSlider() {
               <CardMedia
                 component="img"
                 height="250px"
-                image={"/images/bg/banner-16.png"}
+                image={"/images/bg/sm-banner-2.jpg"}
                 alt="slider-img"
                 sx={{ objectFit: "fill" }}
               />

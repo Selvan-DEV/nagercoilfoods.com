@@ -210,11 +210,14 @@ const Info: NextPage<IPageProps> = (props) => {
                     }}
                   >
                     <Box sx={{ display: "flex", flexDirection: "column" }}>
-                      <Typography variant="subtitle1">
+                      <Typography
+                        variant="subtitle1"
+                        sx={{ width: "200px", wordWrap: "break-word" }}
+                      >
                         {item.product.productName}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        {item.variant || item.product.weight}
+                        {item.variant || item.product.weight + "g"}
                       </Typography>
                       <Typography variant="body1" fontWeight="bold">
                         Rs.{item.price}
