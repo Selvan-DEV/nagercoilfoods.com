@@ -13,6 +13,7 @@ import {
   InputAdornment,
   TextField,
   Button,
+  Divider,
 } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
@@ -30,7 +31,11 @@ import {
 import ChipComponent from "@/components/site-components/chip-component/ChipComponent";
 import DateTimeComponent from "@/shared/StandaredDateTime/DateTime";
 import AddressFormatter from "@/shared/AddressComponent/AddressComponent";
-import { getOrdersByShopId } from "@/services/ShopManagement/ShopManagement";
+import {
+  getInvoiceBinaries,
+  getOrdersByShopId,
+} from "@/services/ShopManagement/ShopManagement";
+import showErrorToast from "../showErrorToast";
 
 interface IPageProps {
   orders: IOrder[];
@@ -112,6 +117,26 @@ const OrderList: NextPage<IPageProps> = (props) => {
     }
   };
 
+  const onDownload = async (orderId: number, index: number) => {
+    if (!orderId) {
+      return;
+    }
+
+    try {
+      const pdfBlob = await getInvoiceBinaries(orderId);
+      if (pdfBlob) {
+        const url = window.URL.createObjectURL(pdfBlob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `invoice-${orderId}.pdf`;
+        link.click();
+        handleClose(index);
+      }
+    } catch (error) {
+      showErrorToast(error);
+    }
+  };
+
   return (
     <Box sx={{ padding: 2 }}>
       <Box
@@ -164,9 +189,9 @@ const OrderList: NextPage<IPageProps> = (props) => {
             </TextField>
           </Box>
 
-          <Button variant="contained" onClick={handleExport}>
+          {/* <Button variant="contained" onClick={handleExport}>
             Export
-          </Button>
+          </Button> */}
         </Box>
       </Box>
 
@@ -242,6 +267,10 @@ const OrderList: NextPage<IPageProps> = (props) => {
                         {option.orderStatusName}
                       </MenuItem>
                     ))}
+                    <Divider />
+                    <MenuItem onClick={() => onDownload(order.orderId, index)}>
+                      Download Invoice
+                    </MenuItem>
                   </Menu>
                 </TableCell>
               </TableRow>

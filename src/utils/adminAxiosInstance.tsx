@@ -4,7 +4,7 @@ import showErrorToast from "../components/showErrorToast";
 
 const adminAxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
-  timeout: 10000,
+  timeout: 30000,
 });
 
 // Request interceptor

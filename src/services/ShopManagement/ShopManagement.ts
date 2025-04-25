@@ -73,6 +73,19 @@ export const getOrdersByShopId = async (shopId: number, status: string, isDownlo
   }
 };
 
+export const ordersExport = async (orderIds: string) => {
+  try {
+    const response = await adminAxiosInstance.post<any>(`/shop/${shopId}/orders-export`, { orderIds },
+      {
+        responseType: 'blob',
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getOrderItemsByOrderId = async (shopId: number, orderId: number) => {
   try {
     const response = await adminAxiosInstance.get<IOrderItemsSummary>(`/shop/${shopId}/orders/${orderId}`);
@@ -187,6 +200,19 @@ export const getAllReviewsByShopId = async (isShow: number): Promise<IReviewShop
 export const productAction = async (product: { productId: number; isPopular: number; }) => {
   try {
     const response = await adminAxiosInstance.put<{ productId: number; isPopular: number; }>(`/shop/${shopId}/product-action`, product);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getInvoiceBinaries = async (orderId: number) => {
+  try {
+    const response = await adminAxiosInstance.get<any>(`/shop/${shopId}/orders/${orderId}/download-invoice`,
+      {
+        responseType: 'blob',
+      }
+    );
     return response.data;
   } catch (error) {
     throw error;

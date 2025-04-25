@@ -79,7 +79,6 @@ export default function NewOrdersPage() {
       }
     } catch (error) {
       console.error(error);
-    } finally {
       setLoading(false);
     }
   }, [shopId]);

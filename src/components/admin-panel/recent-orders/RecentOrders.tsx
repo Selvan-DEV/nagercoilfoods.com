@@ -13,6 +13,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Divider,
 } from "@mui/material";
 import {
   IOrderStatus,
@@ -25,9 +26,15 @@ import NoDataFound from "@/components/site-components/NoDataFound/NoDataFound";
 import AddressFormatter from "@/shared/AddressComponent/AddressComponent";
 import DateTimeComponent from "@/shared/StandaredDateTime/DateTime";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { getOrdersByShopId } from "@/services/ShopManagement/ShopManagement";
+import {
+  getInvoiceBinaries,
+  getOrdersByShopId,
+  ordersExport,
+} from "@/services/ShopManagement/ShopManagement";
 import Link from "next/link";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { DataGrid, GridColDef, GridRowId } from "@mui/x-data-grid";
+import showErrorToast from "@/components/showErrorToast";
 
 interface IPageProps {
   recentOrders: IRecentOrders[];
@@ -38,8 +45,8 @@ interface IPageProps {
 }
 
 const OrderTable: NextPage<IPageProps> = (props) => {
-  const { recentOrders, pageTitle, shopId, orderStatuses, onStatusChange } =
-    props;
+  const [selectedIds, setSelectedIds] = useState<GridRowId[]>([]);
+  const { recentOrders, pageTitle, orderStatuses, onStatusChange } = props;
   const [loading, setLoading] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<{
     [key: number]: HTMLElement | null;
@@ -61,6 +68,7 @@ const OrderTable: NextPage<IPageProps> = (props) => {
     selectedOrderStatusId: number,
     index: number
   ) => {
+    handleClose(index);
     if (!selectedOrderStatusId || index < 0) {
       return;
     }
@@ -78,7 +86,7 @@ const OrderTable: NextPage<IPageProps> = (props) => {
   const handleExport = async () => {
     try {
       setLoading(true);
-      const csvBlob = await getOrdersByShopId(shopId, "1", "Yes");
+      const csvBlob = await ordersExport(selectedIds.join(","));
       const url = window.URL.createObjectURL(csvBlob);
       const a = document.createElement("a");
       a.href = url;
@@ -94,6 +102,176 @@ const OrderTable: NextPage<IPageProps> = (props) => {
     }
   };
 
+  const onDownload = async (orderId: number, index: number) => {
+    if (!orderId) {
+      return;
+    }
+
+    try {
+      const pdfBlob = await getInvoiceBinaries(orderId);
+      if (pdfBlob) {
+        const url = window.URL.createObjectURL(pdfBlob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `invoice-${orderId}.pdf`;
+        link.click();
+        handleClose(index);
+      }
+    } catch (error) {
+      showErrorToast(error);
+    }
+  };
+
+  const columns: GridColDef[] = [
+    {
+      field: "orderId",
+      headerName: "#Order",
+      flex: 0.5,
+      minWidth: 100,
+      display: "flex",
+      align: "left",
+      renderCell: ({ row }) => (
+        <Link href={`/shop-management/orders/${row.orderId}`} passHref>
+          <Typography color="primary" sx={{ cursor: "pointer" }}>
+            #{row.orderId}
+          </Typography>
+        </Link>
+      ),
+    },
+    {
+      field: "product",
+      headerName: "Product",
+      flex: 1.2,
+      minWidth: 200,
+      display: "flex",
+      align: "left",
+      renderCell: ({ row }) => (
+        <Box>
+          {row.products.map((product: IRecentOrderProducts, index: number) => (
+            <Box key={index}>
+              <Typography>{product.productName}</Typography>
+              <Typography variant="body2" color="text.secondary">
+                Qty - {product.orderQuantity}
+              </Typography>
+            </Box>
+          ))}
+        </Box>
+      ),
+    },
+    {
+      field: "orderAmount",
+      headerName: "Price",
+      flex: 0.6,
+      minWidth: 120,
+      display: "flex",
+      align: "left",
+      valueGetter: (value, row) => `Rs.${Number(row.orderAmount).toFixed(2)}`,
+    },
+    {
+      field: "billingAddress",
+      headerName: "Billing Address",
+      flex: 1,
+      minWidth: 180,
+      display: "flex",
+      align: "left",
+      renderCell: ({ row }) =>
+        row.billingAddress ? (
+          <AddressFormatter props={row.billingAddress} />
+        ) : (
+          "-"
+        ),
+    },
+    {
+      field: "shipping",
+      headerName: "Shipping Address",
+      flex: 1,
+      minWidth: 180,
+      display: "flex",
+      align: "left",
+      renderCell: ({ row }) =>
+        row.deliveryAddress ? (
+          <AddressFormatter props={row.deliveryAddress} />
+        ) : (
+          "-"
+        ),
+    },
+    {
+      field: "createdAt",
+      headerName: "Created At",
+      flex: 0.8,
+      minWidth: 150,
+      display: "flex",
+      align: "left",
+      renderCell: ({ row }) => <DateTimeComponent dateTime={row.createdAt} />,
+    },
+    {
+      field: "orderStatus",
+      headerName: "Delivery Status",
+      flex: 0.5,
+      minWidth: 120,
+      display: "flex",
+      align: "left",
+      renderCell: ({ row }) => <ChipComponent value={row.orderStatus || ""} />,
+    },
+    {
+      field: "action",
+      headerName: "Action",
+      headerAlign: "center",
+      flex: 0.5,
+      minWidth: 120,
+      display: "flex",
+      align: "center",
+      renderCell: (params) => {
+        const sortedRowIds = params.api.getSortedRowIds();
+        const index = sortedRowIds.indexOf(params.id);
+        return (
+          <Box
+            onClick={(event) => {
+              event.stopPropagation();
+            }}
+          >
+            <IconButton
+              aria-label="more"
+              id="long-button"
+              aria-controls={open ? "long-menu" : undefined}
+              aria-expanded={open ? "true" : undefined}
+              aria-haspopup="true"
+              onClick={(event) => handleClick(event, index)}
+            >
+              <MoreVertIcon />
+            </IconButton>
+            <Menu
+              id="long-menu"
+              MenuListProps={{
+                "aria-labelledby": "long-button",
+              }}
+              anchorEl={anchorEl[index]}
+              open={Boolean(anchorEl[index])}
+              onClose={() => handleClose(index)}
+            >
+              {(orderStatuses || []).map((option) => (
+                <MenuItem
+                  key={option.orderStatusId}
+                  onClick={() =>
+                    handleOnStatusSelect(option.orderStatusId, index)
+                  }
+                >
+                  {option.orderStatusName}
+                </MenuItem>
+              ))}
+              <Divider />
+              <MenuItem onClick={() => onDownload(Number(params.id), index)}>
+                Download Invoice
+              </MenuItem>
+            </Menu>
+          </Box>
+        );
+      },
+    },
+  ];
+
+  const paginationModel = { page: 0, pageSize: 50 };
+
   return (
     <Paper sx={{ padding: 2 }}>
       <Box
@@ -106,154 +284,51 @@ const OrderTable: NextPage<IPageProps> = (props) => {
         <Typography variant="h6" gutterBottom>
           {pageTitle}
         </Typography>
-        <LoadingButton
-          variant="contained"
-          onClick={handleExport}
-          loading={loading}
-          loadingPosition="start"
-        >
-          Export
-        </LoadingButton>
+        {pageTitle === "New Orders" && (
+          <LoadingButton
+            variant="contained"
+            onClick={handleExport}
+            loading={loading}
+            loadingPosition="start"
+            disabled={loading || !selectedIds.length}
+          >
+            {loading ? "...loading" : "Export"}
+          </LoadingButton>
+        )}
       </Box>
 
       {!recentOrders || !recentOrders.length ? (
         <NoDataFound message="No Recent Orders" />
       ) : (
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 650, borderCollapse: "collapse" }}
-            aria-label="simple table"
-          >
-            <TableHead>
-              <TableRow>
-                <TableCell sx={{ borderBottom: "1px solid #e0e0e0" }}>
-                  #Order
-                </TableCell>
-                <TableCell sx={{ borderBottom: "1px solid #e0e0e0" }}>
-                  Product
-                </TableCell>
-                <TableCell
-                  align="left"
-                  sx={{ borderBottom: "1px solid #e0e0e0" }}
-                >
-                  Price
-                </TableCell>
-
-                <TableCell sx={{ borderBottom: "1px solid #e0e0e0" }}>
-                  Billing Address
-                </TableCell>
-
-                <TableCell sx={{ borderBottom: "1px solid #e0e0e0" }}>
-                  Shipping Address
-                </TableCell>
-                <TableCell>Ordered Date</TableCell>
-                <TableCell
-                  align="left"
-                  sx={{ borderBottom: "1px solid #e0e0e0" }}
-                >
-                  Delivery Status
-                </TableCell>
-                {pageTitle === "New Orders" && <TableCell>Action</TableCell>}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {recentOrders.map((row, index) => (
-                <TableRow
-                  key={row.orderId}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell sx={{ borderBottom: "1px solid #e0e0e0" }}>
-                    <Link href={`/shop-management/orders/${row.orderId}`}>
-                      <Typography color="primary">#{row.orderId}</Typography>
-                    </Link>
-                  </TableCell>
-                  <TableCell
-                    component="th"
-                    scope="row"
-                    sx={{ borderBottom: "1px solid #e0e0e0" }}
-                  >
-                    <Box display="flex" alignItems="center">
-                      <Box>
-                        {row.products.map(
-                          (product: IRecentOrderProducts, index: number) => (
-                            <Box key={index}>
-                              <Typography>{product.productName}</Typography>
-                              <Typography
-                                variant="body2"
-                                color="text.secondary"
-                              >
-                                Qty - {product.orderQuantity}
-                              </Typography>
-                            </Box>
-                          )
-                        )}
-                      </Box>
-                    </Box>
-                  </TableCell>
-                  <TableCell
-                    align="left"
-                    sx={{ borderBottom: "1px solid #e0e0e0" }}
-                  >
-                    &#8377;{row.orderAmount.toFixed(2)}
-                  </TableCell>
-                  <TableCell align="left">
-                    {row.billingAddress && (
-                      <AddressFormatter props={row.billingAddress} />
-                    )}
-                  </TableCell>
-                  <TableCell sx={{ borderBottom: "1px solid #e0e0e0" }}>
-                    {row.deliveryAddress && (
-                      <AddressFormatter props={row.deliveryAddress} />
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    <DateTimeComponent dateTime={row.createdAt} />
-                  </TableCell>
-                  <TableCell
-                    align="left"
-                    sx={{ borderBottom: "1px solid #e0e0e0" }}
-                  >
-                    <ChipComponent value={row.orderStatus || ""} />
-                  </TableCell>
-                  {pageTitle === "New Orders" && (
-                    <TableCell>
-                      <IconButton
-                        aria-label="more"
-                        id="long-button"
-                        aria-controls={open ? "long-menu" : undefined}
-                        aria-expanded={open ? "true" : undefined}
-                        aria-haspopup="true"
-                        onClick={(event) => handleClick(event, index)}
-                      >
-                        <MoreVertIcon />
-                      </IconButton>
-                      <Menu
-                        id="long-menu"
-                        MenuListProps={{
-                          "aria-labelledby": "long-button",
-                        }}
-                        anchorEl={anchorEl[index]}
-                        open={Boolean(anchorEl[index])}
-                        onClose={() => handleClose(index)}
-                      >
-                        {(orderStatuses || []).map((option) => (
-                          <MenuItem
-                            key={option.orderStatusId}
-                            onClick={() =>
-                              handleOnStatusSelect(option.orderStatusId, index)
-                            }
-                          >
-                            {option.orderStatusName}
-                          </MenuItem>
-                        ))}
-                      </Menu>
-                    </TableCell>
-                  )}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <DataGrid
+          rows={recentOrders}
+          getRowId={(row) => row.orderId}
+          getRowHeight={() => "auto"}
+          onRowSelectionModelChange={(newSelection) => {
+            setSelectedIds(newSelection.slice());
+          }}
+          columnVisibilityModel={{
+            action: pageTitle === "New Orders",
+          }}
+          rowSelectionModel={selectedIds}
+          columns={columns}
+          initialState={{ pagination: { paginationModel } }}
+          pageSizeOptions={[5, 10, 50, 100]}
+          checkboxSelection={pageTitle === "New Orders"}
+          sx={{
+            border: 0,
+            marginTop: "20px",
+            "& .MuiDataGrid-cell": {
+              alignItems: "center",
+              paddingLeft: 1,
+              paddingTop: 1,
+              paddingBottom: 1,
+            },
+            "& .MuiDataGrid-columnHeaders": {
+              backgroundColor: "transparent",
+            },
+          }}
+        />
       )}
     </Paper>
   );

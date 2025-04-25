@@ -6,6 +6,7 @@ const formatDate = (isoDate: string) => {
 
   // Options for formatting the date and time
   const options: Intl.DateTimeFormatOptions = {
+    timeZone: "Asia/Kolkata",
     year: "numeric",
     month: "short",
     day: "numeric",
