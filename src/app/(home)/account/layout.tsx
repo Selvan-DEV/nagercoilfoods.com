@@ -75,6 +75,8 @@ export default function UserAccountManagementPage({
           open={!isMobile}
           sx={{
             height: "100vh",
+            position: "fixed",
+            marginTop: "-26px",
           }}
         >
           <List component="nav">{mainListItems}</List>
@@ -85,6 +87,8 @@ export default function UserAccountManagementPage({
             flexGrow: 1,
             overflow: "auto",
             backgroundColor: "#FFFFFF",
+            marginTop: "-26px",
+            marginLeft: "250px",
           }}
         >
           <Box

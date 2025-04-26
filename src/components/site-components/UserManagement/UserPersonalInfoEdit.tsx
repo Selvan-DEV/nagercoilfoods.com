@@ -98,7 +98,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSubmit }) => {
   return (
     <Box sx={{ padding: "15px" }}>
       <Box component={"div"} sx={useStyles.formHeader}>
-        <Typography>Manage Personal Info</Typography>
+        <Typography>Update Personal Info</Typography>
         <Grid item xs={12} sx={{ textAlign: "right" }}>
           {!isEditing && (
             <IconButton
@@ -114,7 +114,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSubmit }) => {
 
       <form onSubmit={formik.handleSubmit}>
         <Grid container spacing={2} alignItems="center">
-          <Grid item xs={12} sm={3}>
+          {/* <Grid item xs={12} sm={3}>
             <Avatar
               alt="Profile Picture"
               src={profileImage || ""}
@@ -140,7 +140,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSubmit }) => {
                 </IconButton>
               </label>
             )}
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} sm={9}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>

@@ -8,7 +8,7 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
   --primary-color: #000000;
-  --app-bar-text-color: #f1e3d3;
+  --app-bar-text-color: #ffff;
 }
 
 @media (prefers-color-scheme: dark) {

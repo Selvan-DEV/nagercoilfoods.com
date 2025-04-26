@@ -49,25 +49,23 @@ const ProductForm = (props: { productId?: number }) => {
       description: "",
       productQuantity: "",
       price: "",
-      offerPrice: "",
+      offerPrice: 0,
       offerStartDate: null as Dayjs | null,
       offerEndDate: null as Dayjs | null,
       metaTitle: "",
       metaDescription: "",
       imageUrl: "",
       weight: "",
-      brand: "Nilas Snacks",
+      brand: "Nila Snacks",
       brandId: 1,
       stockStatus: "",
       categoryId: "",
       ingredients: "",
-      variants: [
-        {
-          variantName: "",
-          additionalPrice: 0,
-          stock: 0,
-        },
-      ],
+      variants: [] as {
+        variantName: string;
+        additionalPrice: number;
+        stock: number;
+      }[],
     },
     validationSchema: Yup.object().shape({
       categoryId: Yup.string().required("Category is requried"),
@@ -107,13 +105,13 @@ const ProductForm = (props: { productId?: number }) => {
         if (!productId) {
           const response = await createProduct(formValues);
           if (response && response.id > 0) {
-            toast.success("Sucess");
+            toast.success("Success");
             router.back();
           }
         } else {
           const response = await updateProduct(formValues);
           if (response) {
-            toast.success("Sucess");
+            toast.success("Success");
             router.back();
           }
         }

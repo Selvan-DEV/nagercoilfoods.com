@@ -60,9 +60,7 @@ const SiteAppBar = () => {
                 </IconButton>
                 <Box>
                   <Typography variant="body2">Email now :</Typography>
-                  <Typography variant="body2">
-                    nilafoods2025@gmail.com
-                  </Typography>
+                  <Typography variant="body2">support@nilafoods.com</Typography>
                 </Box>
               </Box>
             </>

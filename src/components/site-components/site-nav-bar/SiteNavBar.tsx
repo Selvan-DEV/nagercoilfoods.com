@@ -30,6 +30,7 @@ import useUser from "@/customHooks/useUser";
 import { getSessionStorageItem } from "@/shared/SharedService/StorageService";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 const StyledNavButton = styled(Button)`
   color: var(--app-bar-text-color);
@@ -175,18 +176,27 @@ const SiteNavBar = () => {
         )}
 
         <Box display="flex" alignItems="center">
-          <IconButton
-            sx={{
-              color: user?.userId
-                ? "var(--app-bar-text-color)"
-                : "var(--app-bar-text-color)",
-            }}
-            onClick={(e) =>
-              !user?.userId ? router.push("/sign-in") : handleProfileMenuOpen(e)
-            }
-          >
-            <PersonOutlineIcon />
-          </IconButton>
+          {user && user.userId ? (
+            <Button
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              onClick={handleProfileMenuOpen}
+              color="secondary"
+            >
+              <Typography variant="body2">{user.firstName}</Typography>
+              <ArrowDropDownIcon />
+            </Button>
+          ) : (
+            <IconButton
+              sx={{
+                color: "var(--app-bar-text-color)",
+              }}
+              onClick={(e) => router.push("/sign-in")}
+            >
+              <PersonOutlineIcon />
+            </IconButton>
+          )}
+
           <IconButton sx={{ color: "var(--app-bar-text-color)" }}>
             <Badge
               badgeContent={`${itemCount}`}
@@ -238,7 +248,7 @@ const SiteNavBar = () => {
               </IconButton>
               <Box>
                 <Typography variant="body2">Email now :</Typography>
-                <Typography variant="body2">nilafoods2025@gmail.com</Typography>
+                <Typography variant="body2">support@nilafoods.com</Typography>
               </Box>
             </Box>
           </Box>
