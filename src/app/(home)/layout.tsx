@@ -1,5 +1,3 @@
-"use client";
-
 import { ReactNode } from "react";
 import "../globals.css";
 import { Outfit } from "next/font/google";
@@ -13,11 +11,19 @@ const outfit = Outfit({
   variable: "--font-outfit",
 });
 
+export const metadata = {
+  title:
+    "Nagercoil Special Chips - Buy Karacho, Seeval, Mixture Online | Authentic Taste",
+  description:
+    "Order authentic Nagercoil Karacho, Seeval, and Mixture online! Fresh, crunchy, and homemade-style snacks delivered straight to your doorstep. Taste the tradition of South India.",
+  keywords: "chips, snacks, nagercoil special, karacho, seeval, mixture",
+};
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={outfit.variable}>
       <head>
-        <title>Nila-Foods</title>
+        <title>nila foods</title>
       </head>
       <body className={outfit.className}>
         <GlobalLoader />
