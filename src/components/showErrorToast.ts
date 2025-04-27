@@ -11,10 +11,13 @@ export type ErrorResponse = {
 const showErrorToast = (
   error: AxiosError<ErrorResponse> | string | null | any
 ) => {
+  console.log(error, 'error');
   if (error && typeof error !== "string") {
     const errorData = error.response?.data;
 
-    if (error.message) {
+    if (error.response?.data?.message) {
+      toast.error(error.response.data.message);
+    } else if (error.message) {
       toast.error(error.message);
     } else if (errorData?.message) {
       toast.error(errorData.message);

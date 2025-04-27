@@ -5,6 +5,7 @@ import { SignInFormValues } from '@/components/admin-panel/Login/Login';
 import { ILoginResponse } from '@/models/UserManagement/IUserData';
 import { customerLogin } from '@/services/UserManagementService/UsersService';
 import { setItemToSessionStorage } from '@/shared/SharedService/StorageService';
+import showErrorToast from '@/components/showErrorToast';
 
 type UserState = {
   user: ILoginResponse | null;
@@ -38,7 +39,7 @@ export const useUserStore = create<UserState>()(
           set({ user: userData });
           return userData
         } catch (err) {
-          console.error('Login failed:', err);
+          showErrorToast(err);
           throw err;
         }
       },

@@ -88,7 +88,7 @@ export default function UserAccountManagementPage({
             overflow: "auto",
             backgroundColor: "#FFFFFF",
             marginTop: "-26px",
-            marginLeft: "250px",
+            marginLeft: isMobile ? "50px" : "250px",
           }}
         >
           <Box

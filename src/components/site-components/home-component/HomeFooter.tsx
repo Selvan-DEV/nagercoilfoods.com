@@ -72,9 +72,6 @@ const HomeFooter = () => {
               sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}
             >
               <Link href="#" variant="body2" display="block">
-                Refund Policy
-              </Link>
-              <Link href="#" variant="body2" display="block">
                 Privacy Policy
               </Link>
               <Link href="#" variant="body2" display="block">
@@ -99,8 +96,8 @@ const HomeFooter = () => {
                 Customer care: +91 80725 24935
               </Typography>
               <Typography variant="body2">
-                <Link href="mailto:nilafoods2025@gmail.com">
-                  email - nilafoods2025@gmail.com
+                <Link href="mailto:support@nilafoods.com">
+                  email - support@nilafoods.com
                 </Link>
               </Typography>
               <Typography variant="body2">FSSAI NO: 22425086000072</Typography>

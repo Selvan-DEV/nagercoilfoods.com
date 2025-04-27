@@ -12,6 +12,7 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import Image from "next/image";
 import SiteNavBar from "../site-nav-bar/SiteNavBar";
+import Link from "next/link";
 
 const SiteAppBar = () => {
   const theme = useTheme();
@@ -30,12 +31,14 @@ const SiteAppBar = () => {
     >
       <Toolbar>
         <Box display="flex" alignItems="center">
-          <Image
-            src="/images/logo/logo.png"
-            alt="Vegist Logo"
-            height={100}
-            width={100}
-          />
+          <Link href="/">
+            <Image
+              src="/images/logo/logo.png"
+              alt="Vegist Logo"
+              height={100}
+              width={100}
+            />
+          </Link>
         </Box>
         <SiteNavBar />
         <Box

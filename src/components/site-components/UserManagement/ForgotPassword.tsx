@@ -17,9 +17,9 @@ import { forgotPassword } from "@/services/UserManagementService/UsersService";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid Email").required("Email is required"),
-  oldPassword: Yup.string().required("Current Password is required"),
+  oldPassword: Yup.string().required("New Password is required"),
   newPassword: Yup.string()
-    .required("New Password is required")
+    .required("Confirm Password is required")
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
@@ -97,7 +97,7 @@ export default function ForgotPasswordComponent() {
                   required
                   fullWidth
                   name="oldPassword"
-                  label="Current Password"
+                  label="New Password"
                   type="password"
                   id="old-password"
                   autoComplete="current-password"
@@ -112,7 +112,7 @@ export default function ForgotPasswordComponent() {
                   required
                   fullWidth
                   name="newPassword"
-                  label="New Password"
+                  label="Confirm Password"
                   type="password"
                   id="new-password"
                   autoComplete="new-password"

@@ -16,11 +16,11 @@ import { useRouter } from "next/navigation";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { NextPage } from "next";
-import { Dispatch } from "react";
 import { useUserStore } from "@/store/site-store/useUserStore";
-import showErrorToast from "@/components/showErrorToast";
 import { ILoginResponse } from "@/models/UserManagement/IUserData";
 import { getSessionStorageItem } from "@/shared/SharedService/StorageService";
+import { useState } from "react";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid Email").required("Email is required"),
@@ -51,28 +51,31 @@ const SignIn: NextPage<IPageProps> = (props) => {
   const login = useUserStore((state) => state.login);
   const router = useRouter();
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   const handleSubmit = async (values: SignInFormValues) => {
     const sessionId = getSessionStorageItem("sessionId") as string;
     values.sessionId = sessionId ? sessionId : null;
     values.role = "Customer";
 
-    const res = await login(values);
-    const responseData = res as ILoginResponse;
-
-    if (
-      responseData &&
-      responseData.hasOwnProperty("token") &&
-      responseData.token
-    ) {
-      if (isModal && setOpenSignInModal) {
-        const userId = res.user.userId || 0;
-        setOpenSignInModal(userId);
-      } else {
-        router.push("/");
+    try {
+      setLoading(true);
+      const res = await login(values);
+      const responseData = res as ILoginResponse;
+      if (
+        responseData &&
+        responseData.hasOwnProperty("token") &&
+        responseData.token
+      ) {
+        if (isModal && setOpenSignInModal) {
+          const userId = res.user.userId || 0;
+          setOpenSignInModal(userId);
+        } else {
+          router.push("/");
+        }
       }
-    } else if (responseData && responseData.hasOwnProperty("message")) {
-      const message = (responseData as unknown as { message: string }).message;
-      showErrorToast(message);
+    } catch (error) {
+      setLoading(false);
     }
   };
 
@@ -134,14 +137,16 @@ const SignIn: NextPage<IPageProps> = (props) => {
                 error={touched.password && Boolean(errors.password)}
                 helperText={touched.password && errors.password}
               />
-              <Button
+              <LoadingButton
                 type="submit"
+                loading={loading}
+                disabled={loading}
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign In
-              </Button>
+                {loading ? "...loaidng" : "Sign In"}
+              </LoadingButton>
               <Grid container>
                 <Grid item xs>
                   <Link href="/forgot-password" variant="body2">
