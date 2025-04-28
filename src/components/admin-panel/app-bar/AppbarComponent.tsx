@@ -99,9 +99,6 @@ const AppbarComponent = () => {
           open={open}
           onClose={handleClose}
         >
-          <MenuItem onClick={() => handleClose("user-settings")}>
-            User Settings
-          </MenuItem>
           <MenuItem onClick={() => handleClose("logout")}>Logout</MenuItem>
         </Menu>
       </Toolbar>

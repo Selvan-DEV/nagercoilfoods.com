@@ -45,17 +45,6 @@ const FeaturesSection = () => {
         <Grid item xs={12} sm={6} md={3}>
           <FeatureBox>
             <FeatureIcon>
-              <RestoreOutlinedIcon fontSize="large" />
-            </FeatureIcon>
-            <FeatureTitle variant="subtitle1">Return & refund</FeatureTitle>
-            <FeatureDescription variant="body2">
-              Money back guarantee
-            </FeatureDescription>
-          </FeatureBox>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <FeatureBox>
-            <FeatureIcon>
               <HeadsetMicOutlinedIcon fontSize="large" />
             </FeatureIcon>
             <FeatureTitle variant="subtitle1">Customer support</FeatureTitle>

@@ -16,11 +16,11 @@ const TrustedInfo = () => {
       }}
     >
       <Typography variant="h4" sx={{ fontWeight: "bold" }} color="primary">
-        Trusted by 10,000+ households
+        Trusted by 1,000+ households
       </Typography>
-      <Typography variant="body1" sx={{ marginTop: "10px" }} color="primary">
+      {/* <Typography variant="body1" sx={{ marginTop: "10px" }} color="primary">
         4.8/5 in Google reviews (1000+ reviews)
-      </Typography>
+      </Typography> */}
     </Box>
   );
 };
