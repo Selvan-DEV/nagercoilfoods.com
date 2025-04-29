@@ -71,17 +71,11 @@ const HomeFooter = () => {
             <Box
               sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}
             >
-              <Link href="#" variant="body2" display="block">
+              <Link href="/privacy-policy" variant="body2" display="block">
                 Privacy Policy
               </Link>
-              <Link href="#" variant="body2" display="block">
-                Terms of Service
-              </Link>
-              <Link href="#" variant="body2" display="block">
-                Shipping Policy
-              </Link>
-              <Link href="#" variant="body2" display="block">
-                FAQs
+              <Link href="/terms-conditions" variant="body2" display="block">
+                Terms of Conditions
               </Link>
             </Box>
           </Grid>
