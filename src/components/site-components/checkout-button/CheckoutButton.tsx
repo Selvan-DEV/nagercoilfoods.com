@@ -66,7 +66,7 @@ const CheckOutButton = (props: {
       const order = await res.json();
 
       const options = {
-        key: "rzp_test_wkU2ITss47LoF1",
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
         amount: order.amount,
         currency: order.currency,
         name: "My E-Commerce",
@@ -106,7 +106,7 @@ const CheckOutButton = (props: {
             }
           } catch (verifyError) {
             console.error("Verification error:", verifyError);
-            showErrorToast(verifyError);
+            alert("Payment verification failed.");
           }
         },
         prefill: {
@@ -122,8 +122,7 @@ const CheckOutButton = (props: {
       const rzp = new window.Razorpay(options);
       rzp.open();
     } catch (error) {
-      showErrorToast(error);
-      console.log(error, "final error");
+      alert("Payment failed.");
     } finally {
       hideLoader();
       setLoading(false);

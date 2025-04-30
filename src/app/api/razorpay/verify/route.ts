@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = body;
 
   const sign = crypto
-    .createHmac("sha256", 'reeJtwkmTTTatYsn6pmElzJ0' as string)
+    .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET as string)
     .update(`${razorpay_order_id}|${razorpay_payment_id}`)
     .digest("hex");
 
