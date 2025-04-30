@@ -106,8 +106,13 @@ const schema = Yup.object().shape({
     apartment: Yup.string(),
     city: Yup.string().required("Required"),
     state: Yup.string().required("Required"),
-    pincode: Yup.string().required("Required"),
-    phone: Yup.string().required("Required"),
+    pincode: Yup.string()
+      .matches(/^[0-9]{6}$/, "Must be 6 digits")
+      .required("Required"),
+    phone: Yup.string()
+      .matches(/^[0-9]+$/, "Must be only digits")
+      .max(10, "Must be at most 10 digits")
+      .required("Phone number is required"),
   }),
   billingSameAsShipping: Yup.boolean(),
   newsletter: Yup.boolean(),
@@ -125,8 +130,13 @@ const schema = Yup.object().shape({
         apartment: Yup.string(),
         city: Yup.string().required("Required"),
         state: Yup.string().required("Required"),
-        pincode: Yup.string().required("Required"),
-        phone: Yup.string().required("Required"),
+        pincode: Yup.string()
+          .matches(/^[0-9]{6}$/, "Must be 6 digits")
+          .required("Required"),
+        phone: Yup.string()
+          .matches(/^[0-9]+$/, "Must be only digits")
+          .max(10, "Must be at most 10 digits")
+          .required("Phone number is required"),
       }),
     otherwise: () => Yup.object().notRequired(),
   }),
@@ -147,6 +157,7 @@ const CheckoutPage = (props: { cartProductsWithSummary: ICartSummayItems }) => {
 
   const methods = useForm({
     defaultValues,
+    mode: "onChange",
     resolver: yupResolver(schema),
   });
 

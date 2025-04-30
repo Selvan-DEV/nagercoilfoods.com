@@ -42,6 +42,8 @@ export interface IOrderItem {
   shopId: number;
   orderStatusId: number;
   toEmailAddress: string;
+  deliveryCharge: number;
+  discountValue: number;
 }
 
 export interface ICheckOutFormFields {

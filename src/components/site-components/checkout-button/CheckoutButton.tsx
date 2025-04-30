@@ -145,6 +145,8 @@ const CheckOutButton = (props: {
         cartItem: cartState,
         orderStatusId: 1,
         toEmailAddress: checkoutSessionData.email,
+        deliveryCharge: Number(checkoutSessionData.deliveryCharge),
+        discountValue: Number(checkoutSessionData.discountValue),
       } as IOrderItem;
 
       const response = await markCartItemAsOrder(payload);

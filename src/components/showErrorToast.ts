@@ -11,7 +11,6 @@ export type ErrorResponse = {
 const showErrorToast = (
   error: AxiosError<ErrorResponse> | string | null | any
 ) => {
-  console.log(error, 'error');
   if (error && typeof error !== "string") {
     const errorData = error.response?.data;
 

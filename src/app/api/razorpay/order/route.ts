@@ -8,7 +8,6 @@ const razorpay = new Razorpay({
 
 export async function POST(request: NextRequest) {
   const { orderPayload } = await request.json();
-  console.log(orderPayload, 'orderPayload');
 
   const options = {
     amount: Number(orderPayload.amount) * 100, // in paisa
@@ -16,13 +15,11 @@ export async function POST(request: NextRequest) {
     receipt: "receipt_order_" + Math.random(),
   };
 
-  console.log(options, 'options');
 
   try {
     const order = await razorpay.orders.create(options);
     return Response.json(order);
   } catch (err: any) {
-    console.log(err, 'err')
     return Response.json({ error: err.message }, { status: 500 });
   }
 }

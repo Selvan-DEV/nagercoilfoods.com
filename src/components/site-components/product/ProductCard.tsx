@@ -98,7 +98,24 @@ const ProductCardBeta = (props: {
         {Number(product.offerPrice) > 0 ? (
           <Box>
             <Rupee rupee={product.price} isLineThrough={true} />
-            <Rupee rupee={Number(product.price) - Number(product.offerPrice)} />
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                gap: "5px",
+                alignItems: "center",
+              }}
+            >
+              <Typography>
+                {String(product.weight)?.split(".").length
+                  ? String(product.weight)?.split(".")[0]
+                  : String(product.weight)}
+                g
+              </Typography>
+              <Rupee
+                rupee={Number(product.price) - Number(product.offerPrice)}
+              />
+            </Box>
           </Box>
         ) : (
           <Box>

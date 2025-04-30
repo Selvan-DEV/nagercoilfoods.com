@@ -71,8 +71,32 @@ export default function ProductDetailsSideSection(props: {
           sx={{ textDecoration: "line-through" }}
         ></Typography>
         <Rupee rupee={product.price} isLineThrough={true} />
-        <Rupee rupee={product.price - Number(product.offerPrice)} />
-        <Chip label="Sale" color="primary" />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "5px",
+            alignItems: "center",
+          }}
+        >
+          <Typography>
+            {String(product.weight)?.split(".").length
+              ? String(product.weight)?.split(".")[0]
+              : String(product.weight)}
+            g
+          </Typography>
+          <Rupee rupee={Number(product.price) - Number(product.offerPrice)} />
+        </Box>
+
+        {Number(product.offerPrice) > 0 && (
+          <Chip
+            label={`${Math.round(
+              (Number(product.offerPrice) / Number(product.price)) * 100
+            )}% OFF`}
+            color="success"
+            sx={{ fontWeight: "bold" }}
+          />
+        )}
       </Box>
 
       <Typography variant="body2" color="text.secondary" mt={1}>
@@ -98,7 +122,9 @@ export default function ProductDetailsSideSection(props: {
                   value={variant.variantsId || 0}
                   key={variant.variantsId}
                 >
-                  {variant.variantName}
+                  {variant.variantName} (Rs.
+                  {Number(variant.additionalPrice) - Number(product.offerPrice)}
+                  )
                 </ToggleButton>
               ))}
           </ToggleButtonGroup>

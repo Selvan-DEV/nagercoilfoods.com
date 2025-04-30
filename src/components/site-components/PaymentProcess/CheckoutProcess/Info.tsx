@@ -76,10 +76,6 @@ const Info: NextPage<IPageProps> = (props) => {
     } else if (state) {
       switch (state) {
         case "Tamil Nadu":
-        case "Kerala":
-        case "Karnataka":
-        case "Andhra Pradesh":
-        case "Telangana":
           delivery = Number(DeliveryCharges.tamilNadu);
           break;
         default:
