@@ -8,15 +8,15 @@ const razorpay = new Razorpay({
 
 export async function POST(request: NextRequest) {
   const { orderPayload } = await request.json();
-
-  // 1. Create Razorpay Customer
-  // const customer = await razorpay.customers.create(orderPayload.user);
+  console.log(orderPayload, 'orderPayload');
 
   const options = {
     amount: Number(orderPayload.amount) * 100, // in paisa
     currency: "INR",
     receipt: "receipt_order_" + Math.random(),
   };
+
+  console.log(options, 'options');
 
   try {
     const order = await razorpay.orders.create(options);
