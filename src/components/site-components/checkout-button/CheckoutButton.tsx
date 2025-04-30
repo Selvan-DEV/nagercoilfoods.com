@@ -66,7 +66,7 @@ const CheckOutButton = (props: {
       const order = await res.json();
 
       const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+        key: "rzp_test_wkU2ITss47LoF1",
         amount: order.amount,
         currency: order.currency,
         name: "My E-Commerce",
