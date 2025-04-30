@@ -106,7 +106,7 @@ const CheckOutButton = (props: {
             }
           } catch (verifyError) {
             console.error("Verification error:", verifyError);
-            alert("Payment verification failed.");
+            showErrorToast(verifyError);
           }
         },
         prefill: {
@@ -122,7 +122,8 @@ const CheckOutButton = (props: {
       const rzp = new window.Razorpay(options);
       rzp.open();
     } catch (error) {
-      alert("Payment failed.");
+      showErrorToast(error);
+      console.log(error, "final error");
     } finally {
       hideLoader();
       setLoading(false);

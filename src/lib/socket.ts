@@ -5,7 +5,7 @@ let socket: Socket | null = null;
 
 export const initSocket = (): Socket => {
   if (!socket) {
-    socket = io("http://localhost:5001"); // ✅ change to your server URL
+    socket = io(process.env.NEXT_PUBLIC_SOCKET_URL);
   }
 
   return socket;

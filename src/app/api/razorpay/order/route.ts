@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
   // const customer = await razorpay.customers.create(orderPayload.user);
 
   const options = {
-    amount: orderPayload.amount * 100, // in paisa
+    amount: Number(orderPayload.amount) * 100, // in paisa
     currency: "INR",
     receipt: "receipt_order_" + Math.random(),
   };
@@ -22,6 +22,7 @@ export async function POST(request: NextRequest) {
     const order = await razorpay.orders.create(options);
     return Response.json(order);
   } catch (err: any) {
+    console.log(err, 'err')
     return Response.json({ error: err.message }, { status: 500 });
   }
 }
