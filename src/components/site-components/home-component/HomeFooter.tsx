@@ -87,7 +87,7 @@ const HomeFooter = () => {
               sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}
             >
               <Typography variant="body2">
-                Customer care: +91 80725 24935
+                Customer care: +91 80725 249355
               </Typography>
               <Typography variant="body2">
                 <Link href="mailto:support@nilafoods.com">
