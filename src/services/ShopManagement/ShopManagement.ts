@@ -3,6 +3,7 @@ import { IProduct, ICategories, ICreateProductReview, IReviewShopView } from "@/
 import { ILoginResponse, IUserData } from "@/models/UserManagement/IUserData";
 import { getSessionStorageItem } from "@/shared/SharedService/StorageService";
 import adminAxiosInstance from "@/utils/adminAxiosInstance";
+import { IOrderDetails } from "@/models/OrderManagement/IAddOrUpdateCartPayload";
 
 const shopId = (getSessionStorageItem("adminData") as ILoginResponse)?.user?.shopId || 0;
 
@@ -88,7 +89,7 @@ export const ordersExport = async (orderIds: string) => {
 
 export const getOrderItemsByOrderId = async (shopId: number, orderId: number) => {
   try {
-    const response = await adminAxiosInstance.get<IOrderItemsSummary>(`/shop/${shopId}/orders/${orderId}`);
+    const response = await adminAxiosInstance.get<IOrderDetails[]>(`/shop/${shopId}/orders/${orderId}`);
     return response.data;
   } catch (error) {
     throw error;

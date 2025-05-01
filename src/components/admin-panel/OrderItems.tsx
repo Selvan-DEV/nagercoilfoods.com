@@ -19,15 +19,17 @@ import {
   IOrderStatus,
 } from "@/app/(admin)/shop-management/model/ShopManagementModel";
 import ButtonMenuComponent from "@/shared/ButtonMenuComponent/ButtonMenu";
+import { IOrderDetails } from "@/models/OrderManagement/IAddOrUpdateCartPayload";
+import ChipComponent from "../site-components/chip-component/ChipComponent";
 
 interface IPageProps {
-  order: IOrderItemsSummary | null;
+  orderDetails: IOrderDetails[];
   orderStatuses: IOrderStatus[];
   onStatusChange: (payload: { orderId: number; orderStatusId: number }) => void;
 }
 
 const OrderItems: NextPage<IPageProps> = (props) => {
-  const { order, orderStatuses, onStatusChange } = props;
+  const { orderDetails, orderStatuses, onStatusChange } = props;
 
   const handleOnStatusSelect = (selectedOrderStatusId: number) => {
     if (!selectedOrderStatusId) {
@@ -35,7 +37,7 @@ const OrderItems: NextPage<IPageProps> = (props) => {
     }
 
     const payload = {
-      orderId: order?.orderId || 0,
+      orderId: orderDetails[0].orderId || 0,
       orderStatusId: selectedOrderStatusId,
     };
 
@@ -61,9 +63,11 @@ const OrderItems: NextPage<IPageProps> = (props) => {
             }}
           >
             <Typography variant="h6">
-              Order # {order?.orderId.toString()} - Products Details
+              Order # {orderDetails[0]?.orderId.toString()} - Products Details
             </Typography>
-            <Typography variant="body2">Fully Paid</Typography>
+            <Box>
+              <ChipComponent value={orderDetails[0].paymentStatus || ""} />
+            </Box>
           </Box>
 
           <ButtonMenuComponent
@@ -71,38 +75,34 @@ const OrderItems: NextPage<IPageProps> = (props) => {
               value: x.orderStatusId,
               key: x.orderStatusName,
             }))}
-            buttonName={order?.orderStatus || ""}
+            buttonName={orderDetails[0]?.orderStatusName || ""}
             onSelect={handleOnStatusSelect}
           />
         </Box>
 
         <Divider sx={{ marginBottom: 2 }} />
 
-        {/* Product Table Section */}
-        {/* <Typography variant="h6" sx={{ marginBottom: 2 }}>
-        Product Details
-      </Typography> */}
-
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>Product</TableCell>
+              <TableCell>Weight</TableCell>
               <TableCell>Item Price</TableCell>
+              <TableCell>Offer Price</TableCell>
               <TableCell>Quantity</TableCell>
               <TableCell>Total Amount</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {order &&
-              order.orderItems &&
-              order.orderItems.length > 0 &&
-              order.orderItems.map((item, index) => (
+            {orderDetails &&
+              orderDetails.length > 0 &&
+              orderDetails.map((item, index) => (
                 <TableRow key={index}>
                   <TableCell>
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                       <Avatar
-                        src={item.product.imageUrl}
-                        alt={item.product.productName}
+                        src={item.imageUrl}
+                        alt={item.productName}
                         sx={{ width: 60, height: 60, marginRight: 2 }}
                       />
                       <Box>
@@ -110,14 +110,20 @@ const OrderItems: NextPage<IPageProps> = (props) => {
                           variant="subtitle1"
                           sx={{ fontWeight: "bold" }}
                         >
-                          {item.product.productName}
+                          {item.productName}
                         </Typography>
                       </Box>
                     </Box>
                   </TableCell>
-                  <TableCell>${item.product.price}</TableCell>
+                  <TableCell>
+                    {item.variantName
+                      ? item.variantName
+                      : item.weight.split(".")[0] + "g"}
+                  </TableCell>
+                  <TableCell>Rs.{item.productPrice}</TableCell>
+                  <TableCell>Rs.{item.offerPrice}</TableCell>
                   <TableCell>{item.quantity}</TableCell>
-                  <TableCell>Rs.{item.product.price}</TableCell>
+                  <TableCell>Rs.{item.price}</TableCell>
                 </TableRow>
               ))}
           </TableBody>
@@ -133,21 +139,9 @@ const OrderItems: NextPage<IPageProps> = (props) => {
                 marginBottom: 1,
               }}
             >
-              <Typography variant="body1">Sub Total:</Typography>
-              <Typography variant="body1">
-                Rs.{order?.totalAmount?.toFixed(2)}
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: 1,
-              }}
-            >
-              <Typography variant="body1">Discount (VELZON15):</Typography>
+              <Typography variant="body1">Discount:</Typography>
               <Typography variant="body1" sx={{ color: "red" }}>
-                Rs.00
+                -Rs.{orderDetails[0].discountValue}
               </Typography>
             </Box>
             <Box
@@ -157,18 +151,10 @@ const OrderItems: NextPage<IPageProps> = (props) => {
                 marginBottom: 1,
               }}
             >
-              <Typography variant="body1">Shipping Charge:</Typography>
-              <Typography variant="body1">Rs.00</Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: 1,
-              }}
-            >
-              <Typography variant="body1">Estimated Tax:</Typography>
-              <Typography variant="body1">Rs.00</Typography>
+              <Typography variant="body1">Delivery Charge:</Typography>
+              <Typography variant="body1">
+                Rs.{orderDetails[0].deliveryCharge}
+              </Typography>
             </Box>
             <Divider sx={{ marginY: 1 }} />
             <Box
@@ -180,7 +166,7 @@ const OrderItems: NextPage<IPageProps> = (props) => {
             >
               <Typography variant="body1">Total (INR):</Typography>
               <Typography variant="body1">
-                Rs.{order?.totalAmount?.toFixed(2)}
+                Rs.{orderDetails[0]?.finalAmount}
               </Typography>
             </Box>
           </Box>

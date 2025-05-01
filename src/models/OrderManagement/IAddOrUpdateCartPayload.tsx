@@ -44,6 +44,7 @@ export interface IOrderItem {
   toEmailAddress: string;
   deliveryCharge: number;
   discountValue: number;
+  checkoutSessionId: number;
 }
 
 export interface ICheckOutFormFields {
@@ -99,4 +100,26 @@ export interface ICheckoutSessionInfo {
   email: string;
   shippingAddress: ICheckOutSessionAddress;
   billingAddress: ICheckOutSessionAddress;
+}
+
+export interface IOrderDetails {
+  orderId: number;
+  productId: number;
+  productName: string;
+  quantity: number;
+  price: string;
+  orderItemId: number;
+  deliveryCharge: string;
+  discountValue: string;
+  paymentStatus: string;
+  discountCode: string;
+  variantName: string;
+  variantId: number;
+  weight: string;
+  finalAmount: string;
+  orderStatus: number;
+  orderStatusName: string;
+  imageUrl: string;
+  offerPrice: string;
+  productPrice: string;
 }

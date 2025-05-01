@@ -5,7 +5,7 @@ import FeaturesSection from "./FeaturesSection";
 export default function MakingUpdate() {
   return (
     <Container sx={{ my: 4 }} maxWidth="lg">
-      <Grid container spacing={2}>
+      {/* <Grid container spacing={2}>
         <Grid item xs={12} sm={12}>
           <Card>
             <CardMedia
@@ -16,7 +16,7 @@ export default function MakingUpdate() {
             />
           </Card>
         </Grid>
-      </Grid>
+      </Grid> */}
       <FeaturesSection />
     </Container>
   );

@@ -20,6 +20,7 @@ export default function ChipComponent(props: { value: string }) {
         return { backgroundColor: "#ffecb3", color: "#ef6c00" };
       case "Delivered":
       case "Active":
+      case "Paid":
         return { backgroundColor: "#e8f5e9", color: "#2e7d32" };
       case "Inactive":
         return { backgroundColor: "#ffe1e1", color: "#8a3939" };
@@ -37,6 +38,7 @@ export default function ChipComponent(props: { value: string }) {
       sx={{
         backgroundColor: chipStyles.backgroundColor,
         color: chipStyles.color,
+        textTransform: "capitalize",
       }}
     />
   );

@@ -22,9 +22,6 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={outfit.variable}>
-      <head>
-        <title>nila foods</title>
-      </head>
       <body className={outfit.className}>
         <GlobalLoader />
         <AppLayoutComponent>

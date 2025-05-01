@@ -18,23 +18,6 @@ import {
 } from "@/models/OrderManagement/IAddOrUpdateCartPayload";
 import CheckOutButton from "@/components/site-components/checkout-button/CheckoutButton";
 
-// Types
-interface Address {
-  firstName: string;
-  lastName: string;
-  phone: string;
-  email?: string;
-  address: string;
-  apartment?: string;
-  city: string;
-  state: string;
-  pincode: string;
-}
-
-interface Summary {
-  totalPrice: number;
-}
-
 interface Props {
   open: boolean;
   onClose: () => void;

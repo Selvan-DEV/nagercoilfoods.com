@@ -19,6 +19,7 @@ import ConfirmModal from "@/shared/ConfirmModal/ConfirmModal";
 import { getSessionStorageItem } from "@/shared/SharedService/StorageService";
 import OrderItems from "../OrderItems";
 import { AxiosError } from "axios";
+import { IOrderDetails } from "@/models/OrderManagement/IAddOrUpdateCartPayload";
 
 interface ClientOrderPageProps {
   orderid: string;
@@ -26,7 +27,7 @@ interface ClientOrderPageProps {
 
 const ClientOrderPage = ({ orderid }: ClientOrderPageProps) => {
   const [adminData, setAdminData] = useState<IUserData | null>(null);
-  const [orderItems, setOrderItems] = useState<IOrderItemsSummary | null>(null);
+  const [orderItems, setOrderItems] = useState<IOrderDetails[]>([]);
   const [orderStatuses, setOrderStatuses] = useState<IOrderStatus[]>([]);
   const [loading, setLoading] = useState(true);
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
@@ -118,13 +119,15 @@ const ClientOrderPage = ({ orderid }: ClientOrderPageProps) => {
 
   return (
     <>
-      <Box>
-        <OrderItems
-          order={orderItems}
-          orderStatuses={orderStatuses}
-          onStatusChange={onStatusChange}
-        />
-      </Box>
+      {orderItems && orderItems.length && (
+        <Box>
+          <OrderItems
+            orderDetails={orderItems}
+            orderStatuses={orderStatuses}
+            onStatusChange={onStatusChange}
+          />
+        </Box>
+      )}
 
       {selectedStatusToChange && (
         <ConfirmModal
