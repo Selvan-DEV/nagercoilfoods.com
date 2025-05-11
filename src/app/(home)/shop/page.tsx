@@ -30,7 +30,7 @@ export default function ProductPage() {
         setCategories(fetchedCategories);
       }
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   }, []);
 
