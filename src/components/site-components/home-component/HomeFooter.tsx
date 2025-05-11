@@ -105,7 +105,7 @@ const HomeFooter = () => {
             color="textSecondary"
             mt={2}
           >
-            © {new Date().getFullYear()} Your Digital Firm. All rights reserved.
+            © {new Date().getFullYear()} Nilaa Foods. All rights reserved.
           </Typography>
         </Grid>
       </Container>
