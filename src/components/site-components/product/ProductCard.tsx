@@ -54,11 +54,11 @@ const ProductCardBeta = (props: {
       <Card
         sx={{
           width: 300,
-          padding: 2,
           textAlign: "center",
+          borderRadius: "10px",
         }}
       >
-        {product.averageRating ? (
+        {/* {product.averageRating ? (
           <Box sx={{ textAlign: "right", height: "25px" }}>
             <Chip
               color="primary"
@@ -73,7 +73,7 @@ const ProductCardBeta = (props: {
           </Box>
         ) : (
           <Box sx={{ textAlign: "right", height: "25px" }}></Box>
-        )}
+        )} */}
         <CardMedia
           component="img"
           height="220"
@@ -125,7 +125,7 @@ const ProductCardBeta = (props: {
 
         <Box
           sx={{
-            mt: 2,
+            m: 2,
             display: "flex",
             justifyContent: "center",
             gap: "5px",
