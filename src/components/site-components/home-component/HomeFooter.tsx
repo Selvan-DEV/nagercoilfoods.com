@@ -90,8 +90,8 @@ const HomeFooter = () => {
                 Customer care: +91 80725 24935
               </Typography>
               <Typography variant="body2">
-                <Link href="mailto:support@nilafoods.com">
-                  email - support@nilafoods.com
+                <Link href="mailto:support@nagercoilfoods.com">
+                  email - support@nagercoilfoods.com
                 </Link>
               </Typography>
               <Typography variant="body2">FSSAI NO: 22425086000072</Typography>
@@ -105,7 +105,11 @@ const HomeFooter = () => {
             color="textSecondary"
             mt={2}
           >
-            © {new Date().getFullYear()} Nilaa Foods. All rights reserved.
+            © {new Date().getFullYear()} Nilaa Foods. All rights reserved. |
+            Powered by{" "}
+            <Link href="https://www.facebook.com/Yourdigitalfirm/">
+              Your Digital Firm
+            </Link>
           </Typography>
         </Grid>
       </Container>

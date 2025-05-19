@@ -24,12 +24,12 @@ export default function FAQs() {
     {
       question: "What is the minimum order value?",
       answer:
-        "The minimum order value is $20. We offer free shipping on orders above $50.",
+        "The minimum order value is Rs.150. We offer free shipping on orders above Rs.1000.",
     },
     {
       question: "How can I cancel my order?",
       answer:
-        "You can cancel your order within 2 hours of placing it. Please contact our customer service team at support@bananachips.com or call us at 1-800-BANANA to request a cancellation.",
+        "You can cancel your order within 2 hours of placing it. Please contact our customer service team at support@nagercoilfoods.com or call us at +91 807 252 4935 to request a cancellation.",
     },
     {
       question: "How long will it take to reach my home?",
@@ -40,11 +40,6 @@ export default function FAQs() {
       question: "Do you ship outside Tamil Nadu?",
       answer:
         "Yes, we ship our banana chips all over India! We are working on expanding our international shipping options. Stay tuned for updates!",
-    },
-    {
-      question: "Are your banana chips gluten-free?",
-      answer:
-        "Yes, our banana chips are naturally gluten-free. We use only high-quality bananas and natural ingredients in our products.",
     },
     {
       question: "What types of banana chips do you offer?",
@@ -60,11 +55,6 @@ export default function FAQs() {
       question: "Do you offer bulk discounts for events?",
       answer:
         "Yes, we offer bulk discounts for events and parties. Please contact our sales team at sales@bananachips.com for more information.",
-    },
-    {
-      question: "Can I return my order if I don't like it?",
-      answer:
-        "We want you to be completely satisfied with your purchase. If you're not happy with your order, please contact us within 14 days for a full refund or exchange.",
     },
   ];
 

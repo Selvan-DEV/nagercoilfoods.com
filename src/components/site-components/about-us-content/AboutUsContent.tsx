@@ -9,26 +9,30 @@ function AboutUsContent() {
       </Typography>
 
       <Typography variant="body1" paragraph>
-        Welcome to Nilas Foods, where every crunch tells a story of passion and
-        dedication. We believe that the perfect chip isn&apos;t just a snack;
-        it&apos;s a moment of joy, crafted with care and the finest ingredients.
-        Our journey is rooted in a love for flavor and a commitment to quality.
+        Welcome to Nila Chips, your go-to destination for delicious, crispy, and
+        wholesome banana chips!
       </Typography>
       <Typography variant="body1" paragraph>
-        Nilas Foods began with a simple dream: to create chips that are as
-        wholesome as they are delicious. From our kitchen to your hands, we pour
-        our heart into every batch, ensuring that each chip delivers an
-        unforgettable taste experience.
+        We started as a small family has now grown into a beloved snack brand
+        that brings the authentic taste of traditional banana chips to your
+        doorstep. At Nila Chips, we believe in keeping things simple, natural,
+        and flavorful. That’s why we use only carefully selected bananas, sliced
+        to perfection and fried in premium-quality oil, with just the right
+        touch of seasoning.
       </Typography>
 
       <Box mt={4}>
-        <Typography variant="h5" gutterBottom>
-          Our Values
-        </Typography>
         <Typography variant="body1" paragraph>
-          At Nilas Foods, we are committed to providing high quality snacks,
-          using sustainable and ethical practices. We value our customers, and
-          believe in creating a strong community.
+          Our mission is to bring you a snack that’s not only irresistibly
+          crunchy but also made with honesty and heart. Whether you’re craving a
+          savory bite or looking for a healthier alternative to processed
+          snacks, our banana chips are crafted to satisfy every palate. We’re
+          proud to blend tradition with quality, ensuring every chip you munch
+          on is packed with freshness, crunch, and goodness.
+        </Typography>
+        <Typography variant="h5" gutterBottom>
+          Thank you for being a part of our journey. Here’s to guilt-free
+          snacking with a whole lot of crunch!
         </Typography>
       </Box>
     </Container>

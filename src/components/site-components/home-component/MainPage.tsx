@@ -31,7 +31,7 @@ const MainPage = () => {
       <TopSaleSlider />
 
       {/* Trusted Ino banner */}
-      <TrustedInfo />
+      {/* <TrustedInfo /> */}
 
       <TestimonialsSection />
 

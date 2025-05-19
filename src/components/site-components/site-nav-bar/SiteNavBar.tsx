@@ -248,7 +248,9 @@ const SiteNavBar = () => {
               </IconButton>
               <Box>
                 <Typography variant="body2">Email now :</Typography>
-                <Typography variant="body2">support@nilafoods.com</Typography>
+                <Typography variant="body2">
+                  support@nagercoilfoods.com
+                </Typography>
               </Box>
             </Box>
           </Box>
