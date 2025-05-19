@@ -1,4 +1,12 @@
-import { Box, Card, CardMedia, Container, Grid } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardMedia,
+  Container,
+  Grid,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import React from "react";
 import Slider from "react-slick";
 
@@ -70,6 +78,10 @@ function CustomNextArrow(props: any) {
 }
 
 export default function MainPageSlider() {
+  const theme = useTheme();
+
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   const sliderSettings = {
     dots: false,
     infinite: true,
@@ -91,7 +103,7 @@ export default function MainPageSlider() {
               <Card elevation={0} key={item.id}>
                 <CardMedia
                   component="img"
-                  height="510px"
+                  height={isMobile ? "250px" : "510"}
                   image={item.src}
                   alt="slider-img"
                   sx={{ objectFit: "fill" }}
