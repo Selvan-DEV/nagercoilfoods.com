@@ -45,12 +45,7 @@ const ProductViewPage: NextPage<ProductPageProps> = (props) => {
     <>
       {product && (
         <Container maxWidth="xl">
-          <Grid
-            container
-            direction="row"
-            spacing={2}
-            sx={{ padding: 2, marginTop: 9 }}
-          >
+          <Grid container direction="row" spacing={2} sx={{ marginTop: 9 }}>
             <Grid item xs={12} sm={8} md={8} lg={8}>
               <SingleProductView product={product} />
 
