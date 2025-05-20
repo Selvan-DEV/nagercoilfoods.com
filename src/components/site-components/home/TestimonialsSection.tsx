@@ -22,7 +22,7 @@ const TestimonialsSection = () => {
         />
       </Box>
       <Grid container justifyContent="center" spacing={3}>
-        <CustomerReviewCard productId={1} refreshReviews={false} />
+        <CustomerReviewCard productId={6} refreshReviews={false} />
       </Grid>
       <Box
         sx={{ display: "flex", justifyContent: "center", marginTop: "20px" }}
