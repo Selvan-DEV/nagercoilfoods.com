@@ -105,7 +105,7 @@ const HomeFooter = () => {
             color="textSecondary"
             mt={2}
           >
-            © {new Date().getFullYear()} Nilaa Foods. All rights reserved. |
+            © {new Date().getFullYear()} Nila Foods. All rights reserved. |
             Powered by{" "}
             <Link href="https://www.facebook.com/Yourdigitalfirm/">
               Your Digital Firm
