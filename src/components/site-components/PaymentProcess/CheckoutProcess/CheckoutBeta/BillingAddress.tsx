@@ -85,6 +85,7 @@ const BillingAddress = () => {
                   <TextField
                     label="First Name"
                     size="small"
+                    required
                     fullWidth
                     margin="normal"
                     {...field}
@@ -104,6 +105,7 @@ const BillingAddress = () => {
                     label="Last Name"
                     size="small"
                     fullWidth
+                    required
                     margin="normal"
                     {...field}
                     error={!!errors.billingAddress?.lastName}
@@ -125,6 +127,7 @@ const BillingAddress = () => {
                     label="Address"
                     size="small"
                     fullWidth
+                    required
                     margin="normal"
                     {...field}
                     error={!!errors.billingAddress?.address}
@@ -142,6 +145,7 @@ const BillingAddress = () => {
                   <TextField
                     label="Apartment, suite, etc. (optional)"
                     fullWidth
+                    required
                     size="small"
                     margin="normal"
                     {...field}
@@ -160,6 +164,7 @@ const BillingAddress = () => {
                     label="City"
                     fullWidth
                     size="small"
+                    required
                     margin="normal"
                     {...field}
                     error={!!errors.billingAddress?.city}
@@ -210,6 +215,7 @@ const BillingAddress = () => {
                     label="Pincode"
                     fullWidth
                     size="small"
+                    required
                     margin="normal"
                     {...field}
                     error={!!errors.billingAddress?.pincode}
@@ -228,6 +234,7 @@ const BillingAddress = () => {
                   <TextField
                     label="Phone"
                     size="small"
+                    required
                     fullWidth
                     margin="normal"
                     {...field}

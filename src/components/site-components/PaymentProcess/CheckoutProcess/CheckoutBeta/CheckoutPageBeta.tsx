@@ -277,7 +277,7 @@ const CheckoutPage = (props: { cartProductsWithSummary: ICartSummayItems }) => {
                 <LoadingButton
                   type="submit"
                   variant="contained"
-                  disabled={!methods.formState.isValid || loading}
+                  disabled={loading}
                   loading={loading}
                   loadingPosition="start"
                 >

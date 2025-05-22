@@ -146,6 +146,7 @@ const GuestCheckoutForm = ({
           render={({ field }) => (
             <TextField
               fullWidth
+              required
               size="small"
               label="Email Address"
               margin="normal"
@@ -212,6 +213,7 @@ const GuestCheckoutForm = ({
           render={({ field }) => (
             <TextField
               label="Locality"
+              required
               disabled
               size="small"
               fullWidth
@@ -233,6 +235,7 @@ const GuestCheckoutForm = ({
                     <TextField
                       label="First Name"
                       size="small"
+                      required
                       fullWidth
                       margin="normal"
                       {...field}
@@ -251,6 +254,7 @@ const GuestCheckoutForm = ({
                     <TextField
                       label="Last Name"
                       size="small"
+                      required
                       fullWidth
                       margin="normal"
                       {...field}
@@ -271,6 +275,7 @@ const GuestCheckoutForm = ({
                   render={({ field }) => (
                     <TextField
                       label="Address"
+                      required
                       size="small"
                       fullWidth
                       margin="normal"
@@ -291,6 +296,7 @@ const GuestCheckoutForm = ({
                       label="Apartment, suite, etc. (optional)"
                       fullWidth
                       size="small"
+                      required
                       margin="normal"
                       {...field}
                     />
@@ -308,6 +314,7 @@ const GuestCheckoutForm = ({
                       label="City"
                       fullWidth
                       size="small"
+                      required
                       margin="normal"
                       {...field}
                       error={!!errors.shippingAddress?.city}
@@ -327,6 +334,7 @@ const GuestCheckoutForm = ({
                       fullWidth
                       size="small"
                       displayEmpty
+                      required
                       {...field}
                       value={field.value || ""}
                       onChange={(e) => onStateSelect(e)}
@@ -358,6 +366,7 @@ const GuestCheckoutForm = ({
                     <TextField
                       label="Pincode"
                       size="small"
+                      required
                       fullWidth
                       margin="normal"
                       {...field}
@@ -377,6 +386,7 @@ const GuestCheckoutForm = ({
                     <TextField
                       label="Phone"
                       size="small"
+                      required
                       fullWidth
                       margin="normal"
                       {...field}
