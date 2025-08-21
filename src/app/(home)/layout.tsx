@@ -28,7 +28,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {/* ✅ Google Analytics */}
         <script
           async
-          src={`https://www.googletagmanager.com/gtag/js?id=G-502131503`}
+          src={`https://www.googletagmanager.com/gtag/js?id=G-2PG80LPD2B`}
         />
         <script
           dangerouslySetInnerHTML={{
@@ -36,7 +36,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-502131503', {
+              gtag('config', 'G-2PG80LPD2B', {
                 page_path: window.location.pathname,
               });
             `,
