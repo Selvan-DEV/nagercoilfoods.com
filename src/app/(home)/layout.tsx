@@ -25,6 +25,25 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={outfit.variable}>
       <Head>
+        {/* ✅ Google Analytics */}
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=G-502131503`}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-502131503', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
+        {/* ✅ End Google Analytics */}
+
         {/* Meta Pixel Code */}
         <script
           dangerouslySetInnerHTML={{
