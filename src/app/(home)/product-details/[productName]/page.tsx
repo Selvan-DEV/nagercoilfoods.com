@@ -35,12 +35,12 @@ export async function generateMetadata({
 export default async function Product({
   params,
 }: {
-  params: { productName: string };
+  params: Promise<{ productName: string }>;
 }) {
   let product: IProduct | null = null;
 
   try {
-    product = await getProductByUniqueName(params.productName);
+    product = await getProductByUniqueName((await params).productName);
   } catch (error) {
     console.error("Failed to fetch product:", error);
   }
