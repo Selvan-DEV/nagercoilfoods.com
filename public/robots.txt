@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /wp-admin/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /my-account/
+Disallow: /track-order/
+Disallow: /search/
+Allow: /wp-admin/admin-ajax.php
+
+Sitemap: https://nagercoilfoods.com/sitemap.xml

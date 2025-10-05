@@ -1,6 +1,12 @@
 import React from "react";
 import { Container, Typography, Box } from "@mui/material";
 
+export const metadata = {
+  title: "NAGERCOILFOODS.COM, PASSION FOR AUTHENTIC NAGERCOIL CHIPS & SNACKS ",
+  description:
+    "ABOUT NAGERCOILFOODS.COM – DELIVERING AUTHENTIC NAGERCOIL CHIPS WITH TRADITION & CARE",
+};
+
 function AboutUsContent() {
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>

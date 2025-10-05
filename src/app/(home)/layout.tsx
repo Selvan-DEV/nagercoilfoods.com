@@ -14,11 +14,11 @@ const outfit = Outfit({
 });
 
 export const metadata = {
-  title:
-    "Nagercoil Special Chips - Buy Karacho, Seeval, Mixture Online | Authentic Taste",
+  title: "DISCOVER AUTHENTIC NAGERCOIL SNACKS",
   description:
-    "Order authentic Nagercoil Karacho, Seeval, and Mixture online! Fresh, crunchy, and homemade-style snacks delivered straight to your doorstep. Taste the tradition of South India.",
-  keywords: "chips, snacks, nagercoil special, karacho, seeval, mixture",
+    "WELCOME TO NAGERCOILFOODS.COM – EXPLORE A WIDE RANGE OF AUTHENTIC NAGERCOIL SNACKS INCLUDING CHIPS,MIXTURES,KARASEV AND MORE,MADE FRESH WITH TRADITIONAL RECIPES",
+  keywords:
+    "Nagercoil Foods, Nagercoil Banana Chips, Nagercoil Mixture, Nagercoil Traditional Snacks, South Indian Snacks Online, Authentic Nagercoil Snacks, Buy Nagercoil Chips Online",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
