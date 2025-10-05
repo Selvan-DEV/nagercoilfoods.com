@@ -7,10 +7,10 @@ import { Metadata } from "next";
 export async function generateMetadata({
   params,
 }: {
-  params: { productName: string };
+  params: Promise<{ productName: string }>;
 }): Promise<Metadata> {
   try {
-    const product = await getProductByUniqueName(params.productName);
+    const product = await getProductByUniqueName((await params).productName);
 
     if (product) {
       return {
